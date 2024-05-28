@@ -1,29 +1,34 @@
 .container {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .headerBox {
   display: flex;
+  height: 114px;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
 }
 
 .logoBox {
   display: flex;
   justify-content: center;
   width: 30%;
-  margin-top: 20px;
 }
 
 .mainBox {
   display: flex;
   justify-content: center;
-  height: 600px;
+  align-items: center;
+  height: 100%;
 }
 
 .mainDiv {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  height: 600px;
 }
 
 .leftBox {
