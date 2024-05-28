@@ -4,20 +4,33 @@ import calendar from "../../img/calendar.png";
 import styles from "./Login.module.css";
 
 const Login = () => {
-  const [usercode, setUserCode] = useState("");
-  const [password, serPassword] = useState("");
+  const [userCode, setUserCode] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPasswordInput, setShowPasswordInput] = useState(false);
 
-  const handleUsercodeChange = (event) => {
+  const handleUserCodeChange = (event) => {
     setUserCode(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
-    serPassword(event.target.value);
+    setPassword(event.target.value);
+  };
+
+  const handleUserCodeEnter = (event) => {
+    if (event.key === "Enter") {
+      setShowPasswordInput(true);
+    }
+  };
+
+  const handlePasswordEnter = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   const handleSubmit = () => {
     const userData = {
-      usercode: usercode,
+      userCode: userCode,
       password: password,
     };
 
@@ -58,26 +71,37 @@ const Login = () => {
               </div>
             </div>
             <div className={styles.inputBox}>
-              <input
-                className={styles.userCode}
-                type="text"
-                value={usercode}
-                onChange={handleUsercodeChange}
-                placeholder="코드를 입력하세요."
-              />
-              {/* <input
-                className={styles.pwd}
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                placeholder="패스워드를 입력하세요"
-              />
-              <button onClick={handleSubmit}>click</button>
-              <div>{usercode}</div> */}
-              <div className={styles.tipBox}>
-                <span className={styles.highlight}>TIP</span> 처음이신가요?
-                새로운 코드(10자리 이내)를 입력해 주세요.{" "}
-              </div>
+              {showPasswordInput ? (
+                <>
+                  <input
+                    className={styles.userCode}
+                    type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    onKeyDown={handlePasswordEnter}
+                    placeholder="비밀번호를 입력하세요"
+                  />
+                  <div className={styles.tipBox}>
+                    <span className={styles.highlight}>TIP</span> 비밀번호
+                    4자리를 입력해주세요.
+                  </div>
+                </>
+              ) : (
+                <>
+                  <input
+                    className={styles.userCode}
+                    type="text"
+                    value={userCode}
+                    onChange={handleUserCodeChange}
+                    onKeyDown={handleUserCodeEnter}
+                    placeholder="코드를 입력하세요."
+                  />
+                  <div className={styles.tipBox}>
+                    <span className={styles.highlight}>TIP</span> 처음이신가요?
+                    새로운 코드(10자리 이내)를 입력해 주세요.
+                  </div>
+                </>
+              )}
             </div>
           </div>
           <div className={styles.rightBox}>
