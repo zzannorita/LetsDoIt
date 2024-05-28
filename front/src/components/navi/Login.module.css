@@ -1,0 +1,75 @@
+/* conatiner는 1200 720 */
+.conatiner {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerBox {
+  display: flex;
+}
+
+.logoBox {
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  margin-top: 20px;
+}
+
+.mainBox {
+  display: flex;
+  justify-content: center;
+  height: 600px;
+}
+
+.mainDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.leftBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  height: 50%;
+  font-weight: bold;
+}
+
+.textBox > div:first-child {
+  font-size: 60px;
+}
+
+.textBox > div:nth-child(2) {
+  margin-left: 5px;
+  color: #555555;
+}
+
+.highlight {
+  color: #ed7d31;
+}
+
+.userCode {
+  border: none;
+  background-color: #ed7d31;
+  padding: 15px;
+  color: white;
+  font-size: 20px;
+  outline: none;
+  font-weight: bold;
+}
+
+.userCode::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
+.userCode:focus::placeholder {
+  opacity: 0;
+}
+
+.tipBox {
+  font-size: 12px;
+  margin: 3px;
+  color: #555555;
+}
