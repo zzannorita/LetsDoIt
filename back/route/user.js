@@ -85,7 +85,7 @@ router.post("/updateUser", (req, res) => {
   if (newName) {
     connection.query(
       // 쿼리문을 연결된 DB로 전송하는것임...!
-      "UPDATE user SET name = '?' WHERE usercode = '?'", //db user테이블 내에 user코드 입력받은것이 존재 한다면 다 검색해줘.
+      "UPDATE user SET name = ? WHERE usercode = ?", //db user테이블 내에 user코드 입력받은것이 존재 한다면 다 검색해줘.
       [newName, usercode],
       function (error, results, fields) {
         if (error) throw error;
