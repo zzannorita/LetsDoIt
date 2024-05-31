@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.headerBox}>
+      <div className={styles.header}>
         <div className={styles.logoBox}>
           <img src={logo} alt="logo" width="200px" height="74px"></img>
         </div>

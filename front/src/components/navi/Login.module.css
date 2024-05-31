@@ -5,7 +5,7 @@
   min-width: 100vh;
 }
 
-.headerBox {
+.header {
   display: flex;
   height: 114px;
   align-items: center;
@@ -78,4 +78,30 @@
   font-size: 12px;
   margin: 3px;
   color: #555555;
+}
+
+/* 메인페이지 헤더 */
+.naviBox {
+  display: flex;
+  width: 100vh;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.naviInnerBox {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.naviInnerBox div:hover {
+  color: #ed7d31;
+}
+
+.viewImg {
+  display: flex;
+  width: 20px;
+  height: 20px;
 }
