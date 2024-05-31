@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Board from "../component/Board";
 import Calender from "../component/Calender";
 import Gantt from "../component/Gantt";
@@ -19,7 +14,10 @@ const MainPage = () => {
     <div>
       <div className={styles.header}>
         <div className={styles.logoBox}>
-          <img src={logo} alt="logo" width="200px" height="74px"></img>
+          <div className={styles.logo}>
+            해보자<span className={styles.highlight}>G</span>O
+            <span className={styles.highlight}>!</span>
+          </div>
         </div>
         <div className={styles.headerBox}>
           <div className={styles.naviBox}>
