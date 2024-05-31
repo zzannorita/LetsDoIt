@@ -25,6 +25,7 @@ connection.connect((error) => {
 router.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 router.use(bodyParser.json({ limit: "50mb" }));
 
+//스케줄 추가 라우트
 router.post("/addSchedule", (req, res) => {
   const sendData = {};
 
@@ -54,6 +55,31 @@ router.post("/addSchedule", (req, res) => {
   } else {
     sendData.code = "NO_USER_INFORMATION";
     res.send(sendData);
+  }
+});
+
+//스케줄 변경 라우트
+router.post("/updateSchedule", (req, res) => {
+  const sendData = {};
+
+  const usercode = req.body.userCode;
+  const boardId = req.body.boardId;
+  const start = req.body.start;
+  const end = req.body.end;
+  const title = req.body.title;
+  const content = req.body.content;
+
+  if (usercode) {
+    connection.query(
+      "UPDATE todo SET title = ?, start = ?, end = ?, content = ? WHERE boardId = ?",
+      [start, end, title, content],
+      function (error, results, fields) {
+        if (error) throw error;
+        sendData.code = "DATA_UPDATE_SUCCESSFUL";
+        res.send(sendData);
+      }
+    );
+  } else {
   }
 });
 
