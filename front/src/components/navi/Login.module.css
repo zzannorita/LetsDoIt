@@ -18,6 +18,11 @@
   width: 30%;
 }
 
+.logo {
+  width: 200px;
+  height: 74px;
+}
+
 .mainBox {
   display: flex;
   justify-content: center;
