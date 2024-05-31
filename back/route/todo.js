@@ -80,6 +80,29 @@ router.post("/updateSchedule", (req, res) => {
       }
     );
   } else {
+    sendData.code = "NO_USER_INFORMATION";
+    res.send(sendData);
+  }
+});
+
+//스케줄 삭제 라우트
+router.post("/deleteSchedule", (req, res) => {
+  const sendData = {};
+  const usercode = req.body.userCode;
+  const boardId = req.body.boardId;
+  if (usercode) {
+    connection.query(
+      "DELETE FROM todo WHERE id = ?",
+      [boardId],
+      function (error, results, fields) {
+        if (error) throw error;
+        sendData.code = "DATE_DELETE_SUCCESSFUL";
+        res.send(sendData);
+      }
+    );
+  } else {
+    sendData.code = "NO_USER_INFORMATION";
+    res.send(sendData);
   }
 });
 
