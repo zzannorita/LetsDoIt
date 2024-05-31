@@ -15,12 +15,12 @@
 .logoBox {
   display: flex;
   justify-content: center;
-  width: 30%;
+  width: 20%;
 }
 
 .logo {
-  width: 200px;
-  height: 74px;
+  font-size: 40px;
+  font-weight: 999;
 }
 
 .mainBox {
@@ -88,14 +88,14 @@
 /* 메인페이지 헤더 */
 .naviBox {
   display: flex;
-  width: 100vh;
+  width: 140vh;
   justify-content: space-between;
   align-items: center;
 }
 
 .naviInnerBox {
   display: flex;
-  width: 30%;
+  width: 20%;
   justify-content: space-between;
   font-size: 18px;
   font-weight: bold;

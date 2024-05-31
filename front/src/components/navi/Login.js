@@ -54,7 +54,10 @@ const Login = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.logoBox}>
-          <img className={styles.logo} src={logo} alt="logo"></img>
+          <div className={styles.logo}>
+            해보자<span className={styles.highlight}>G</span>O
+            <span className={styles.highlight}>!</span>
+          </div>
         </div>
       </div>
       <div className={styles.mainBox}>
