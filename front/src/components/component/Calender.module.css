@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.mainBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 90vh;
+  width: 60%;
+}
+
+.monthBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 15vh;
+}
+
+.img {
+  width: 20px;
+  height: 20px;
+}
+
+.month {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.topBox {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nameBox {
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.selectBox {
+  display: flex;
+}
+
+.colorBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchImg {
+  display: flex;
+  align-items: center;
+}
+
+/* 체크박스 커스텀 */
+input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox_icon {
+  display: flex;
+  width: 18px;
+  height: 18px;
+}
+
+.red .checkbox_icon {
+  background-color: #eeaaaa;
+}
+
+.yellow .checkbox_icon {
+  background-color: #efe2a1;
+}
+
+.green .checkbox_icon {
+  background-color: #c4e6ce;
+}
+
+.blue .checkbox_icon {
+  background-color: #add0fb;
+}
+
+.purple .checkbox_icon {
+  background-color: #cbb1ed;
+  margin-right: 8px;
+}
+
+input[type="checkbox"]:checked + .checkbox_icon::after {
+  content: "✔";
+  color: #555555;
+  font-size: 14px;
+  margin: 0 auto;
+}
