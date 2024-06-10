@@ -7,6 +7,7 @@ const Login = () => {
   const [userCode, setUserCode] = useState("");
   const [password, setPassword] = useState("");
   const [showPasswordInput, setShowPasswordInput] = useState(false);
+  const [receivedData, setReceivedData] = useState(); //input태그 상황별 값
 
   const handleUserCodeChange = (event) => {
     setUserCode(event.target.value);
@@ -24,6 +25,7 @@ const Login = () => {
 
   const handlePasswordEnter = (event) => {
     if (event.key === "Enter") {
+      console.log("실행됨..");
       handleSubmit();
     }
   };
@@ -43,7 +45,8 @@ const Login = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.code);
+        setReceivedData(data.code);
       })
       .catch((error) => {
         console.error("Error:", error);
