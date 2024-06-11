@@ -1,0 +1,97 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 배경 흐리게 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modalBox {
+  width: 35vh;
+  height: 45vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modalNameBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modalName {
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  height: 4vh;
+  justify-content: center;
+}
+
+.modalName:focus::placeholder {
+  color: #222222;
+  opacity: 0;
+}
+
+.modalPeriodBox {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #cccccc;
+  height: 4vh;
+  align-items: center;
+}
+
+.periodName {
+  font-weight: bold;
+  margin-left: 2px;
+  color: #333333;
+}
+
+.modalTextBox {
+  display: flex;
+  flex-direction: column;
+  height: 30vh;
+  border-bottom: 1px solid #cccccc;
+}
+
+.modalText {
+  height: 100%;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: "NanumSquareR";
+}
+
+.modalText::-webkit-scrollbar {
+  display: none;
+}
+
+.modalText:focus::placeholder {
+  opacity: 0;
+}
+
+.modalOkBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.okButton {
+  border: none;
+}
+
+.okButton {
+  background-color: white;
+}
