@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import style from "./Calender.module.css";
 import styles from "../navi/Login.module.css";
 import left from "../../img/left.png";
 import right from "../../img/right.png";
 import search from "../../img/search.png";
+import Modal from "./Modal";
 
 const DAY_LIST = ["일", "월", "화", "수", "목", "금", "토"];
 const MONTH_LIST = [
@@ -31,8 +31,9 @@ const Calender = () => {
   const [lastDate, setLastDate] = useState(0); //현재 월의 마지막 일
   const [lastDatePrev, setLastDatePrev] = useState(0); //이전 월의 마지막 일
   const [firstDay, setFirstDay] = useState(0); //현재 월의 첫 번째 날의 요일
-  const [displayDate, setDisplayDate] = useState(""); //디스플레이 날짜 상태 저장
-  // const [openSelect, setOpenSelect] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [events, setEvents] = useState({});
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -47,7 +48,7 @@ const Calender = () => {
     setLastDate(new Date(yy, mm + 1, 0).getDate()); //현재 월의 마지막 일 계산
     setLastDatePrev(new Date(yy, mm, 0).getDate()); //이전 월의 마지막 일 계산
     setFirstDay(new Date(yy, mm, 1).getDay()); //현재 월의 첫 번쨰 날의 요일 계산
-    setDisplayDate(`${yy}년 ${mm + 1}월 ${dd}일`); //디스플레이 날짜
+    // setDisplayDate(`${yy}년 ${mm + 1}월 ${dd}일`); //디스플레이 날짜
   }, [newDate]);
 
   //오늘 날짜
@@ -97,6 +98,16 @@ const Calender = () => {
     const mm = (month + 1).toString().padStart(2, "0"); // 월을 두 자리로 포맷
     const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
     const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
+    setSelectedDate(selectedDate); // 선택된 날짜 저장
+    setModalOpen(true);
+  };
+
+  //저장 핸들러
+  const handleSaveEvent = (eventData) => {
+    setEvents((prevEvents) => ({
+      ...prevEvents,
+      [eventData.selectedDate]: eventData,
+    }));
   };
 
   return (
@@ -128,26 +139,18 @@ const Calender = () => {
           {/* 체크박스 */}
           <div className={style.selectBox}>
             <div className={style.colorBox}>
-              <label className={`${style.checkbox_label} ${style.red}`}>
-                <input type="checkbox" name="red" value="red"></input>
-                <span className={style.checkbox_icon}></span>
-              </label>
-              <label className={`${style.checkbox_label} ${style.yellow}`}>
-                <input type="checkbox" name="yellow" value="yellow"></input>
-                <span className={style.checkbox_icon}></span>
-              </label>
-              <label className={`${style.checkbox_label} ${style.green}`}>
-                <input type="checkbox" name="green" value="green"></input>
-                <span className={style.checkbox_icon}></span>
-              </label>
-              <label className={`${style.checkbox_label} ${style.blue}`}>
-                <input type="checkbox" name="blue" value="blue"></input>
-                <span className={style.checkbox_icon}></span>
-              </label>
-              <label className={`${style.checkbox_label} ${style.purple}`}>
-                <input type="checkbox" name="purple" value="purple"></input>
-                <span className={style.checkbox_icon}></span>
-              </label>
+              {["#eeaaaa", "#efe2a1", "#c4e6ce", "#add0fb", "#cbb1ed"].map(
+                (color) => (
+                  <label
+                    key={color}
+                    className={`${style.checkbox_label} ${style.customColor}`}
+                    style={{ backgroundColor: color }}
+                  >
+                    <input type="checkbox" name="color" value={color} />
+                    <span className={style.checkbox_icon}></span>
+                  </label>
+                )
+              )}
             </div>
             <div className={style.searchImg}>
               <img className={style.img} src={search} alt="search"></img>
@@ -195,7 +198,29 @@ const Calender = () => {
                     onClick={() => handleSelect(val)}
                   >
                     {val}
-                    <div className={style.dateTextBox}></div>
+                    <div
+                      className={style.dateTextBox}
+                      style={{
+                        backgroundColor:
+                          events[
+                            `${year}-${(month + 1)
+                              .toString()
+                              .padStart(2, "0")}-${val
+                              .toString()
+                              .padStart(2, "0")}`
+                          ]?.selectedColor,
+                      }}
+                    >
+                      {
+                        events[
+                          `${year}-${(month + 1)
+                            .toString()
+                            .padStart(2, "0")}-${val
+                            .toString()
+                            .padStart(2, "0")}`
+                        ]?.modalName
+                      }
+                    </div>
                   </div>
                 )
               )}
@@ -213,6 +238,12 @@ const Calender = () => {
             </div>
           </div>
         </div>
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          selectedDate={selectedDate}
+          onSave={handleSaveEvent}
+        />
         <div className={style.textBox}>하단텍스트박스</div>
       </div>
     </div>

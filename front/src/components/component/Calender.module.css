@@ -58,6 +58,7 @@
 .searchImg {
   display: flex;
   align-items: center;
+  margin-left: 8px;
 }
 
 /* 체크박스 커스텀 */
@@ -89,7 +90,7 @@ input[type="checkbox"] {
 
 .purple .checkbox_icon {
   background-color: #cbb1ed;
-  margin-right: 8px;
+  /* margin-right: 8px; */
 }
 
 input[type="checkbox"]:checked + .checkbox_icon::after {
@@ -147,15 +148,18 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .prevDate,
 .curDate,
 .nextDate {
-  width: 13%;
+  width: 12%;
   text-align: right;
   cursor: pointer;
-  padding: 10px 10px 0 0;
+  padding: 10px;
   border-top: 1px solid #ccc;
 }
 
 .dateTextBox {
   height: 8vh;
+  text-align: center;
+  padding: 2px 0;
+  font-size: 13px;
 }
 
 .prevDate {
