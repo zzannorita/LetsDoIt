@@ -25,6 +25,36 @@ connection.connect((error) => {
 router.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 router.use(bodyParser.json({ limit: "50mb" }));
 
+//스케줄 검색 라우트
+router.post("/searchSchedule", (req, res) => {
+  const sendData = {};
+
+  const usercode = parseInt(req.body.userCode, 10);
+  console.log(usercode);
+
+  if (usercode) {
+    // user코드 받아온 경우 즉 로그인이 된 어떤 상태.
+    connection.query(
+      "SELECT * FROM todo WHERE usercode = ?",
+      [usercode],
+      function (error, results, fields) {
+        if (error) {
+          sendData.code = "ERROR";
+          sendData.message = "Database query error";
+          res.send(sendData);
+        } else {
+          sendData.code = "SUCCESS";
+          sendData.results = results;
+          res.send(sendData);
+        }
+      }
+    );
+  } else {
+    sendData.code = "NO_USER_INFORMATION";
+    res.send(sendData);
+  }
+});
+
 //스케줄 추가 라우트
 router.post("/addSchedule", (req, res) => {
   const sendData = {};
@@ -36,6 +66,7 @@ router.post("/addSchedule", (req, res) => {
   const end = req.body.end;
   const title = req.body.title;
   const content = req.body.content;
+  console.log(start, end);
 
   if (usercode) {
     // user코드 받아온 경우 즉 로그인이 된 어떤 상태.
