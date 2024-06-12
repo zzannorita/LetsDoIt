@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import style from "./Board.module.css";
-import search from "../../img/search.png";
 import ReactDatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from "react";
+//이미지 import
+import search from "../../img/search.png";
 import nochecked from "../../img/nochecked.png";
+import trash from "../../img/trash.png";
 
 const Board = () => {
   const [userCode, setUserCode] = useState("5811");
@@ -17,6 +19,24 @@ const Board = () => {
   const [todoContent, setTodoContent] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [toggleUpdate, setToggleUpdate] = useState(false);
+  const [updateTodoTitle, setUpdateTodoTitle] = useState("");
+  const [updateTodoContent, setUpdateTodoContent] = useState("");
+
+  const handleUpdateTitleChange = (event) => {
+    setUpdateTodoTitle(event.target.value);
+  };
+  const handleUpdateContentChange = (event) => {
+    setUpdateTodoContent(event.target.value);
+  };
+
+  const handleUpdateToggle = () => {
+    if (toggleUpdate) {
+      setToggleUpdate(false);
+    } else {
+      setToggleUpdate(true);
+    }
+  };
 
   const handleTitleChange = (event) => {
     setTodoTitle(event.target.value);
@@ -59,8 +79,6 @@ const Board = () => {
       end: formatDate2(endDate),
     };
 
-    console.log(sendInputData);
-
     fetch("/todo/addSchedule", {
       method: "POST",
       headers: {
@@ -75,6 +93,66 @@ const Board = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
+  };
+
+  const handleTodoDelete = () => {
+    const userConfirmed = window.confirm("일정을 삭제 할까요?");
+    const sendData = {
+      userCode: userCode,
+      boardId: selectedTodo.boardId,
+    };
+    if (userConfirmed) {
+      fetch("/todo/deleteSchedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      console.log("삭제 로직 실행 하지 않음.");
+    }
+  };
+
+  const handleTodoUpdate = () => {
+    const userConfirmed = window.confirm("일정을 수정 할까요?");
+    const sendData = {
+      userCode: userCode,
+    };
+    const sendInputData = {
+      userCode: userCode,
+      title: updateTodoTitle,
+      content: updateTodoContent,
+      boardId: selectedTodo.boardId,
+      start: formatDate2(startDate),
+      end: formatDate2(endDate),
+    };
+
+    if (userConfirmed) {
+      fetch("/todo/updateSchedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendInputData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      console.log("삭제 로직 실행 하지 않음.");
+    }
   };
 
   //
@@ -194,21 +272,95 @@ const Board = () => {
                     </div>
                   ) : (
                     <div className={style.detailContentClickedState}>
-                      <div className={style.detailContentClickedStateTitleBox}>
-                        <div>{selectedTodo.title}</div>
-                      </div>
-                      <div className={style.detailContentClickedStatePeriodBox}>
-                        <div>기간</div>
+                      {toggleUpdate ? (
                         <div>
-                          {formatDate(selectedTodo.start)}~
-                          {formatDate(selectedTodo.end)}
+                          <div
+                            className={style.detailContentClickedStateTitleBox}
+                          >
+                            <input
+                              defaultValue={selectedTodo.title}
+                              onChange={handleUpdateTitleChange}
+                            />
+                          </div>
+                          <div
+                            className={style.detailContentClickedStatePeriodBox}
+                          >
+                            <div>기간</div>
+                            <div>
+                              <ReactDatePicker
+                                locale={ko}
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                placeholderText="시작"
+                                className={style.customInput}
+                                calendarClassName={style.customCalendar}
+                                dateFormat="yyyy년 MM월 dd일"
+                              />
+                              <span>~</span>
+                              <ReactDatePicker
+                                locale={ko}
+                                selected={endDate}
+                                onChange={(date) => setEndDate(date)}
+                                placeholderText="종료"
+                                className={style.customInput}
+                                calendarClassName={style.customCalendar}
+                                dateFormat="yyyy년 MM월 dd일"
+                              />
+                            </div>
+                          </div>
+                          <div
+                            className={
+                              style.detailContentClickedStateContentBox
+                            }
+                          >
+                            <textarea
+                              // value={selectedTodo.content}
+                              defaultValue={selectedTodo.content}
+                              onChange={handleUpdateContentChange}
+                            />
+                          </div>
+                          <div
+                            className={style.detailContentClickedStateButtonBox}
+                          >
+                            <button onClick={handleTodoUpdate}>저장</button>
+                            <button onClick={handleUpdateToggle}>취소</button>
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        className={style.detailContentClickedStateContentBox}
-                      >
-                        <div>{selectedTodo.content}</div>
-                      </div>
+                      ) : (
+                        <div>
+                          <div
+                            className={style.detailContentClickedStateTitleBox}
+                          >
+                            <div>{selectedTodo.title}</div>
+                            <img
+                              src={trash}
+                              alt="삭제 아이콘"
+                              onClick={handleTodoDelete}
+                            />
+                          </div>
+                          <div
+                            className={style.detailContentClickedStatePeriodBox}
+                          >
+                            <div>기간</div>
+                            <div>
+                              {formatDate(selectedTodo.start)}~
+                              {formatDate(selectedTodo.end)}
+                            </div>
+                          </div>
+                          <div
+                            className={
+                              style.detailContentClickedStateContentBox
+                            }
+                          >
+                            <div>{selectedTodo.content}</div>
+                          </div>
+                          <div
+                            className={style.detailContentClickedStateButtonBox}
+                          >
+                            <button onClick={handleUpdateToggle}>수정</button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )
                 ) : (

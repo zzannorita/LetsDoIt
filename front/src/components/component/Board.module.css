@@ -180,13 +180,21 @@
 
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .detailContentClickedStateTitleBox {
   padding: 20px;
+  position: relative;
 }
 .detailContentClickedStateTitleBox div {
   font-weight: bolder;
   font-size: larger;
+}
+.detailContentClickedStateTitleBox img {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  cursor: pointer;
 }
 .detailContentClickedStatePeriodBox {
   display: flex;
@@ -202,6 +210,22 @@
 }
 .detailContentClickedStateContentBox {
   padding: 20px;
+}
+.detailContentClickedStateButtonBox {
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+}
+.detailContentClickedStateButtonBox button {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 0 5px;
+  padding: 5px 7px;
+  cursor: pointer;
+}
+.detailContentClickedStateButtonBox button:hover {
+  background-color: #ed7d31;
+  color: #fff;
 }
 
 .detailAddClickedState {
