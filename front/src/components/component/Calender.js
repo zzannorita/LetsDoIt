@@ -34,6 +34,8 @@ const Calender = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [events, setEvents] = useState({});
+  const [eventModalOpen, setEventModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -102,11 +104,20 @@ const Calender = () => {
     setModalOpen(true);
   };
 
+  //이벤트 모달 오픈 함수
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    setEventModalOpen(true);
+  };
+
   //저장 핸들러
   const handleSaveEvent = (eventData) => {
     setEvents((prevEvents) => ({
       ...prevEvents,
-      [eventData.selectedDate]: eventData,
+      [eventData.selectedDate]: [
+        ...(prevEvents[eventData.selectedDate] || []),
+        eventData,
+      ],
     }));
   };
 
@@ -198,28 +209,25 @@ const Calender = () => {
                     onClick={() => handleSelect(val)}
                   >
                     {val}
-                    <div
-                      className={style.dateTextBox}
-                      style={{
-                        backgroundColor:
-                          events[
-                            `${year}-${(month + 1)
-                              .toString()
-                              .padStart(2, "0")}-${val
-                              .toString()
-                              .padStart(2, "0")}`
-                          ]?.selectedColor,
-                      }}
-                    >
-                      {
+                    <div className={style.dateTextBox}>
+                      {(
                         events[
                           `${year}-${(month + 1)
                             .toString()
                             .padStart(2, "0")}-${val
                             .toString()
                             .padStart(2, "0")}`
-                        ]?.modalName
-                      }
+                        ] || []
+                      ).map((event, index) => (
+                        <div
+                          key={index}
+                          className={style.dateText}
+                          style={{ backgroundColor: event.selectedColor }}
+                          onClick={() => handleEventClick(event)}
+                        >
+                          {event.modalName}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )
@@ -241,6 +249,12 @@ const Calender = () => {
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
+          selectedDate={selectedDate}
+          onSave={handleSaveEvent}
+        />
+        <Modal
+          isOpen={eventModalOpen}
+          onClose={() => setEventModalOpen(false)}
           selectedDate={selectedDate}
           onSave={handleSaveEvent}
         />
