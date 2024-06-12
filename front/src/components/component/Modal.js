@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 import style from "./Calender.module.css";
 
@@ -6,6 +6,15 @@ const Modal = ({ isOpen, onClose, selectedDate, onSave }) => {
   const [modalName, setModalName] = useState("");
   const [modalText, setModalText] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      // 모달이 열릴 때 상태를 초기화
+      setModalName("");
+      setSelectedColor("");
+      setModalText("");
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
