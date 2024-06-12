@@ -154,13 +154,35 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   cursor: pointer;
   padding: 10px;
   border-top: 1px solid #ccc;
+  font-weight: bold;
 }
 
 .dateTextBox {
-  height: 8vh;
+  display: flex;
+  flex-direction: column;
+  height: 7vh;
   text-align: center;
   padding: 2px 0;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  overflow-y: scroll;
+}
+
+.dateTextBox::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+}
+
+.dateText {
+  margin: 2px;
+  padding: 2px;
+  border-radius: 3px;
+}
+
+.dateText:hover {
+  /* color: gray; */
+  font-size: 1.3em;
 }
 
 .prevDate {
@@ -168,7 +190,7 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 }
 
 .curDate {
-  color: #000;
+  color: #555555;
 }
 
 .curDate:hover {
