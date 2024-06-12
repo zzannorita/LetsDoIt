@@ -103,7 +103,7 @@ router.post("/updateSchedule", (req, res) => {
   if (usercode) {
     connection.query(
       "UPDATE todo SET title = ?, start = ?, end = ?, content = ? WHERE boardId = ?",
-      [start, end, title, content],
+      [title, start, end, content, boardId],
       function (error, results, fields) {
         if (error) throw error;
         sendData.code = "DATA_UPDATE_SUCCESSFUL";
@@ -123,7 +123,7 @@ router.post("/deleteSchedule", (req, res) => {
   const boardId = req.body.boardId;
   if (usercode) {
     connection.query(
-      "DELETE FROM todo WHERE id = ?",
+      "DELETE FROM todo WHERE boardId = ?",
       [boardId],
       function (error, results, fields) {
         if (error) throw error;
