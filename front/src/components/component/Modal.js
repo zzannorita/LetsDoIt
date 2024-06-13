@@ -2,19 +2,28 @@ import React, { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 import style from "./Calender.module.css";
 
-const Modal = ({ isOpen, onClose, selectedDate, onSave }) => {
+const Modal = ({ isOpen, onClose, selectedDate, onSave, selectedEvent }) => {
   const [modalName, setModalName] = useState("");
   const [modalText, setModalText] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      // 모달이 열릴 때 상태를 초기화
-      setModalName("");
-      setSelectedColor("");
-      setModalText("");
+      if (selectedEvent) {
+        setModalName(selectedEvent.modalName);
+        setModalText(selectedEvent.modalText);
+        setSelectedColor(selectedEvent.selectedColor);
+        setIsEdit(true);
+      } else {
+        // 모달이 열릴 때 상태를 초기화
+        setModalName("");
+        setSelectedColor("");
+        setModalText("");
+        setIsEdit(false);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, selectedEvent]);
 
   if (!isOpen) return null;
 
@@ -31,7 +40,15 @@ const Modal = ({ isOpen, onClose, selectedDate, onSave }) => {
 
   //저장 함수
   const handleSave = () => {
-    onSave({ modalName, selectedDate, selectedColor, modalText });
+    const colorToSave = selectedColor || "#ccc";
+    const eventData = {
+      id: isEdit ? selectedEvent.id : new Date().getTime(),
+      modalName,
+      selectedDate,
+      selectedColor: colorToSave,
+      modalText,
+    };
+    onSave(eventData);
     onClose();
   };
 

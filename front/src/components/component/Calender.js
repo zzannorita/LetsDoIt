@@ -101,24 +101,40 @@ const Calender = () => {
     const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
     const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
     setSelectedDate(selectedDate); // 선택된 날짜 저장
+    setSelectedEvent(null);
     setModalOpen(true);
+    // console.log("날짜모달");
   };
 
   //이벤트 모달 오픈 함수
-  const handleEventClick = (event) => {
+  const handleEventClick = (event, e) => {
+    e.stopPropagation();
     setSelectedEvent(event);
+    setSelectedDate(event.selectedDate);
     setEventModalOpen(true);
+    // console.log("이벤트모달");
   };
 
   //저장 핸들러
   const handleSaveEvent = (eventData) => {
-    setEvents((prevEvents) => ({
-      ...prevEvents,
-      [eventData.selectedDate]: [
-        ...(prevEvents[eventData.selectedDate] || []),
-        eventData,
-      ],
-    }));
+    setEvents((prevEvents) => {
+      const updatedEvents = { ...prevEvents };
+      const dateEvents = updatedEvents[eventData.selectedDate] || [];
+      const eventIndex = dateEvents.findIndex(
+        (event) => event.id === eventData.id
+      );
+
+      if (eventIndex >= 0) {
+        // 기존 이벤트 업데이트
+        dateEvents[eventIndex] = eventData;
+      } else {
+        // 새로운 이벤트 추가
+        dateEvents.push(eventData);
+      }
+
+      updatedEvents[eventData.selectedDate] = dateEvents;
+      return updatedEvents;
+    });
   };
 
   return (
@@ -223,7 +239,7 @@ const Calender = () => {
                           key={index}
                           className={style.dateText}
                           style={{ backgroundColor: event.selectedColor }}
-                          onClick={() => handleEventClick(event)}
+                          onClick={(e) => handleEventClick(event, e)}
                         >
                           {event.modalName}
                         </div>
@@ -252,12 +268,16 @@ const Calender = () => {
           selectedDate={selectedDate}
           onSave={handleSaveEvent}
         />
-        <Modal
-          isOpen={eventModalOpen}
-          onClose={() => setEventModalOpen(false)}
-          selectedDate={selectedDate}
-          onSave={handleSaveEvent}
-        />
+        {selectedEvent && (
+          <Modal
+            isOpen={eventModalOpen}
+            onClose={() => setEventModalOpen(false)}
+            selectedDate={selectedDate}
+            selectedEvent={selectedEvent}
+            onSave={handleSaveEvent}
+            // event={selectedEvent}
+          />
+        )}
         <div className={style.textBox}>하단텍스트박스</div>
       </div>
     </div>
