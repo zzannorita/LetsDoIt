@@ -90,8 +90,8 @@
 }
 .okButton {
   border: none;
-}
-
-.okButton {
+  font-family: "NanumSquareR";
   background-color: white;
+  font-weight: bold;
+  color: #555;
 }
