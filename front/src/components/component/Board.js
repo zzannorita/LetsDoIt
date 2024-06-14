@@ -234,6 +234,13 @@ const Board = () => {
       });
   }, [sendData, currentPage]);
 
+  useEffect(() => {
+    if (selectedTodo) {
+      setUpdateTodoTitle(selectedTodo.title);
+      setUpdateTodoContent(selectedTodo.content);
+    }
+  }, [selectedTodo]);
+
   return (
     <div className={style.container}>
       <div className={style.mainBox}>
@@ -266,7 +273,8 @@ const Board = () => {
                       <div
                         style={{
                           backgroundColor: item.color,
-                          width: "3%",
+                          width: "15px",
+                          height: "15px",
                           borderRadius: "50%",
                         }}
                       ></div>
@@ -281,9 +289,9 @@ const Board = () => {
                         }}
                       >
                         {item.state === "완료" ? (
-                          <img src={checked} />
+                          <img src={checked} alt="체크 아이콘" />
                         ) : (
-                          <img src={nochecked} />
+                          <img src={nochecked} alt="체크 안된 아이콘" />
                         )}
                       </div>
                       <div className={style.summaryTitle}>{item.title}</div>
@@ -327,17 +335,23 @@ const Board = () => {
                   ) : (
                     <div className={style.detailContentClickedState}>
                       {toggleUpdate ? (
-                        <div>
+                        <div className={style.detailAddClickedState}>
                           <div
-                            className={style.detailContentClickedStateTitleBox}
+                            className={
+                              style.detailContentClickedStateTitleAddBox
+                            }
                           >
-                            <input
-                              defaultValue={selectedTodo.title}
-                              onChange={handleUpdateTitleChange}
-                            />
+                            <div>
+                              <input
+                                value={updateTodoTitle}
+                                onChange={handleUpdateTitleChange}
+                              />
+                            </div>
                           </div>
                           <div
-                            className={style.detailContentClickedStatePeriodBox}
+                            className={
+                              style.detailContentClickedStatePeriodAddBox
+                            }
                           >
                             <div>기간</div>
                             <div>
@@ -350,7 +364,9 @@ const Board = () => {
                                 calendarClassName={style.customCalendar}
                                 dateFormat="yyyy년 MM월 dd일"
                               />
-                              <span>~</span>
+                            </div>
+                            <span>~</span>
+                            <div>
                               <ReactDatePicker
                                 locale={ko}
                                 selected={endDate}
@@ -361,44 +377,41 @@ const Board = () => {
                                 dateFormat="yyyy년 MM월 dd일"
                               />
                             </div>
-                            <div className={style.selectBox}>
-                              <div className={style.colorBox}>
-                                {[
-                                  "#eeaaaa",
-                                  "#efe2a1",
-                                  "#c4e6ce",
-                                  "#add0fb",
-                                  "#cbb1ed",
-                                ].map((color) => (
-                                  <label
-                                    key={color}
-                                    className={`${style.checkbox_label} ${style.customColor}`}
-                                    style={{ backgroundColor: color }}
-                                  >
-                                    <input
-                                      type="checkbox"
-                                      name="color"
-                                      value={color}
-                                      onChange={handleColorChange}
-                                    />
-                                    <span
-                                      className={style.checkbox_icon}
-                                    ></span>
-                                  </label>
-                                ))}
-                              </div>
-                            </div>
                           </div>
                           <div
                             className={
-                              style.detailContentClickedStateContentBox
+                              style.detailContentClickedStateContentAddBox
                             }
                           >
                             <textarea
-                              // value={selectedTodo.content}
-                              defaultValue={selectedTodo.content}
+                              value={updateTodoContent}
                               onChange={handleUpdateContentChange}
                             />
+                          </div>
+                          <div className={style.selectBox}>
+                            <div className={style.colorBox}>
+                              {[
+                                "#eeaaaa",
+                                "#efe2a1",
+                                "#c4e6ce",
+                                "#add0fb",
+                                "#cbb1ed",
+                              ].map((color) => (
+                                <label
+                                  key={color}
+                                  className={`${style.checkbox_label} ${style.customColor}`}
+                                  style={{ backgroundColor: color }}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    name="color"
+                                    value={color}
+                                    onChange={handleColorChange}
+                                  />
+                                  <span className={style.checkbox_icon}></span>
+                                </label>
+                              ))}
+                            </div>
                           </div>
                           <div
                             className={style.detailContentClickedStateButtonBox}

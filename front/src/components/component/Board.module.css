@@ -117,7 +117,7 @@
 .summary#cbb1ed{
   background-color: #cbb1ed;
 } */
-.summaryState{
+.summaryState {
   margin-left: 8%;
   width: 10%;
 }
@@ -227,7 +227,7 @@
   margin-right: 30px;
   font-size: large;
 }
-.detailContentClickedStateColorBox{
+.detailContentClickedStateColorBox {
   width: 15px;
   height: 15px;
   position: absolute;
@@ -284,9 +284,13 @@
   border-bottom: 1px solid rgb(222, 222, 222);
 }
 .detailContentClickedStatePeriodAddBox div:first-child {
-  margin-right: 15px;
+  margin-right: 8px;
   width: 35px;
   font-size: large;
+}
+.detailContentClickedStatePeriodAddBox div:nth-child(2),
+.detailContentClickedStatePeriodAddBox div:nth-child(3) {
+  width: 40%;
 }
 .detailContentClickedStateContentAddBox {
   width: auto;
@@ -321,13 +325,9 @@
   background-color: #ed7d31;
   color: #fff;
 }
-.detailContentClickedStatePeriodAddBox div:nth-child(2),
-.detailContentClickedStatePeriodAddBox div:nth-child(3) {
-  width: 102px;
-}
 
 .customInput {
-  width: 100px;
+  width: 88px;
   /* padding: 10px; */
   font-size: 11px;
   /* border: 1px solid #ccc; */
@@ -390,6 +390,9 @@
 
 .selectBox {
   display: flex;
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
 }
 
 .colorBox {
