@@ -36,6 +36,8 @@ const Calender = () => {
   const [events, setEvents] = useState({});
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isSearchBoxClick, setIsSearchBoxClick] = useState(false);
+  const [isTipBoxClick, setIsTipBoxClick] = useState(false);
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -180,7 +182,12 @@ const Calender = () => {
               )}
             </div>
             <div className={style.searchImg}>
-              <img className={style.img} src={search} alt="search"></img>
+              <img
+                className={style.img}
+                src={search}
+                alt="search"
+                onClick={() => setIsSearchBoxClick(!isSearchBoxClick)}
+              ></img>
             </div>
           </div>
         </div>
@@ -262,24 +269,61 @@ const Calender = () => {
             </div>
           </div>
         </div>
-        <Modal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          selectedDate={selectedDate}
-          onSave={handleSaveEvent}
-        />
-        {selectedEvent && (
-          <Modal
-            isOpen={eventModalOpen}
-            onClose={() => setEventModalOpen(false)}
-            selectedDate={selectedDate}
-            selectedEvent={selectedEvent}
-            onSave={handleSaveEvent}
-            // event={selectedEvent}
-          />
-        )}
-        <div className={style.textBox}>하단텍스트박스</div>
       </div>
+      <div className={style.topTipBox}>
+        <div
+          className={styles.tipBox}
+          onClick={() => setIsTipBoxClick(!isTipBoxClick)}
+        >
+          <span className={styles.highlight}>TIP </span>
+          이름을 변경하시려면 여기를 클릭하세요!
+        </div>
+      </div>
+      {isTipBoxClick && (
+        <div className={style.tipTextBox}>
+          <input
+            className={style.inputTipText}
+            type="text"
+            placeholder="이름을 입력해 주세요."
+          />
+          <button className={style.okButton}>확인</button>
+        </div>
+      )}
+      {isSearchBoxClick && (
+        <div className={style.searchBox}>
+          <div className={style.searchInputBox}>
+            <input
+              className={style.searchInput}
+              type="text"
+              placeholder="검색어를 입력하세요."
+            />
+          </div>
+          <div className={style.searchResultBox}>
+            <div className={style.searchResultName}>짱유디생일</div>
+            <div className={style.searchResultDate}>2024-05-18</div>
+          </div>
+          <div className={style.searchResultBox}>
+            <div className={style.searchResultName}>짱유디생일</div>
+            <div className={style.searchResultDate}>2024-05-18</div>
+          </div>
+        </div>
+      )}
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        selectedDate={selectedDate}
+        onSave={handleSaveEvent}
+      />
+      {selectedEvent && (
+        <Modal
+          isOpen={eventModalOpen}
+          onClose={() => setEventModalOpen(false)}
+          selectedDate={selectedDate}
+          selectedEvent={selectedEvent}
+          onSave={handleSaveEvent}
+          // event={selectedEvent}
+        />
+      )}
     </div>
   );
 };

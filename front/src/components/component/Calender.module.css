@@ -1,15 +1,18 @@
 .container {
+  min-width: 1500px;
   display: flex;
   justify-content: center;
+  position: relative;
+  height: 100%;
 }
 
 .mainBox {
   display: flex;
   flex-direction: column;
-  margin-top: 3%;
+  margin-top: 2%;
   align-items: center;
-  height: 100vh;
   width: 60%;
+  height: 100%;
 }
 
 .monthBox {
@@ -60,6 +63,7 @@
   display: flex;
   align-items: center;
   margin-left: 8px;
+  cursor: pointer;
 }
 
 /* 체크박스 커스텀 */
@@ -181,7 +185,6 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 }
 
 .dateText:hover {
-  /* color: gray; */
   font-size: 1.3em;
 }
 
@@ -201,6 +204,111 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   color: #ccc;
 }
 
-.textBox {
+/* 팁박스 */
+.topTipBox {
+  position: absolute;
+  right: 490px;
+  margin-top: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tipTextBox {
+  position: absolute;
+  top: 10px;
+  right: 330px;
+  width: 6.5%;
+  height: 8%;
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 8px;
+  border: 2px solid #ed7d31;
+  padding: 10px;
+  opacity: 0.8;
+}
+
+.inputTipText {
+  outline: none;
+  font-size: 12px;
+  border: none;
+  border-bottom: 1px solid #ed7d31;
+  padding: 5px 0;
+  font-weight: bold;
+  font-family: NanumSquareR;
+}
+
+.inputTipText::placeholder {
+  color: #555;
+}
+
+.inputTipText:focus::placeholder {
+  opacity: 0;
+}
+
+.okButton {
+  outline: none;
+  font-size: 12px;
+  border: none;
+  color: #555;
+  background-color: white;
+  font-weight: bold;
+  font-family: NanumSquareR;
+}
+
+.okButton:hover {
+  color: #ed7d31;
+}
+
+/* 검색창 */
+.searchBox {
+  position: absolute;
+  right: 290px;
+  top: 105px;
+  width: 185px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInput {
+  border: none;
+  color: #555555;
+  font-weight: bold;
+  border-bottom: 1px solid #999;
+  font-size: 12px;
+  width: 80%;
+  padding: 0 0 5px 0;
+  font-family: NanumSquareR;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #999;
+}
+.searchInput:focus::placeholder {
+  opacity: 0;
+}
+
+.searchResultBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  background-color: #efe2a1;
+  width: 120px;
+  height: 35px;
+  padding: 15px;
+}
+
+.searchResultName {
+  font-weight: bold;
+  color: #555;
+  font-size: 14px;
+}
+
+.searchResultDate {
+  font-weight: bold;
+  color: #777;
+  font-size: 12px;
 }
