@@ -99,11 +99,36 @@ router.post("/updateSchedule", (req, res) => {
   const end = req.body.end;
   const title = req.body.title;
   const content = req.body.content;
+  const color = req.body.color;
 
   if (usercode) {
     connection.query(
-      "UPDATE todo SET title = ?, start = ?, end = ?, content = ? WHERE boardId = ?",
-      [title, start, end, content, boardId],
+      "UPDATE todo SET title = ?, start = ?, end = ?, content = ?, color = ? WHERE boardId = ?",
+      [title, start, end, content, color, boardId],
+      function (error, results, fields) {
+        if (error) throw error;
+        sendData.code = "DATA_UPDATE_SUCCESSFUL";
+        res.send(sendData);
+      }
+    );
+  } else {
+    sendData.code = "NO_USER_INFORMATION";
+    res.send(sendData);
+  }
+});
+
+//스케줄 상태 변경 라우트
+router.post("/updateStateSchedule", (req, res) => {
+  const sendData = {};
+
+  const state = req.body.state;
+  const boardId = req.body.boardId;
+  const usercode = req.body.usercode;
+
+  if (usercode) {
+    connection.query(
+      "UPDATE todo SET state = ? WHERE boardId = ?",
+      [state, boardId],
       function (error, results, fields) {
         if (error) throw error;
         sendData.code = "DATA_UPDATE_SUCCESSFUL";

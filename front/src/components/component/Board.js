@@ -8,6 +8,7 @@ import { forwardRef } from "react";
 import search from "../../img/search.png";
 import nochecked from "../../img/nochecked.png";
 import trash from "../../img/trash.png";
+import checked from "../../img/checked.png";
 
 const Board = () => {
   const [userCode, setUserCode] = useState("5811");
@@ -22,6 +23,40 @@ const Board = () => {
   const [toggleUpdate, setToggleUpdate] = useState(false);
   const [updateTodoTitle, setUpdateTodoTitle] = useState("");
   const [updateTodoContent, setUpdateTodoContent] = useState("");
+  const [color, setColor] = useState("");
+
+  const handleColorChange = (event) => {
+    const { value } = event.target;
+    setColor(value);
+    console.log(color);
+  };
+
+  const handleStateToggle = (state, boardId, usercode) => {
+    let sendState = "";
+    if (state === "미완") {
+      sendState = "완료";
+    } else {
+      sendState = "미완";
+    }
+    fetch("/todo/updateStateSchedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        state: sendState,
+        boardId: boardId,
+        usercode: usercode,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   const handleUpdateTitleChange = (event) => {
     setUpdateTodoTitle(event.target.value);
@@ -133,6 +168,7 @@ const Board = () => {
       boardId: selectedTodo.boardId,
       start: formatDate2(startDate),
       end: formatDate2(endDate),
+      color: color,
     };
 
     if (userConfirmed) {
@@ -213,9 +249,7 @@ const Board = () => {
           <div className={style.mainContentBox}>
             <div className={style.summaryBox}>
               <div className={style.summaryTitleBox}>
-                <div className={style.summaryCheckBox}>
-                  <img src={nochecked} />
-                </div>
+                <div className={style.summaryState}>상태</div>
                 <div className={style.summaryTitle}>제목</div>
                 <div className={style.summaryContent}>내용</div>
                 <div className={style.summaryPeriod}>기간</div>
@@ -229,8 +263,28 @@ const Board = () => {
                       className={style.summaryContentEach}
                       onClick={() => handleTodoClick(item)}
                     >
-                      <div className={style.summaryCheckBox}>
-                        <img src={nochecked} />
+                      <div
+                        style={{
+                          backgroundColor: item.color,
+                          width: "3%",
+                          borderRadius: "50%",
+                        }}
+                      ></div>
+                      <div
+                        className={style.summaryCheckBox}
+                        onClick={() => {
+                          handleStateToggle(
+                            item.state,
+                            item.boardId,
+                            item.usercode
+                          );
+                        }}
+                      >
+                        {item.state === "완료" ? (
+                          <img src={checked} />
+                        ) : (
+                          <img src={nochecked} />
+                        )}
                       </div>
                       <div className={style.summaryTitle}>{item.title}</div>
                       <div className={style.summaryContent}>{item.content}</div>
@@ -307,6 +361,33 @@ const Board = () => {
                                 dateFormat="yyyy년 MM월 dd일"
                               />
                             </div>
+                            <div className={style.selectBox}>
+                              <div className={style.colorBox}>
+                                {[
+                                  "#eeaaaa",
+                                  "#efe2a1",
+                                  "#c4e6ce",
+                                  "#add0fb",
+                                  "#cbb1ed",
+                                ].map((color) => (
+                                  <label
+                                    key={color}
+                                    className={`${style.checkbox_label} ${style.customColor}`}
+                                    style={{ backgroundColor: color }}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      name="color"
+                                      value={color}
+                                      onChange={handleColorChange}
+                                    />
+                                    <span
+                                      className={style.checkbox_icon}
+                                    ></span>
+                                  </label>
+                                ))}
+                              </div>
+                            </div>
                           </div>
                           <div
                             className={
@@ -346,6 +427,12 @@ const Board = () => {
                               {formatDate(selectedTodo.start)}~
                               {formatDate(selectedTodo.end)}
                             </div>
+                            <div
+                              className={
+                                style.detailContentClickedStateColorBox
+                              }
+                              style={{ backgroundColor: selectedTodo.color }}
+                            ></div>
                           </div>
                           <div
                             className={
