@@ -102,6 +102,25 @@
     -50%
   ); /* 이미지의 중심을 부모 요소의 중심에 위치시킴 */
 }
+/* .summary#eeaaaa{
+  background-color: #eeaaaa;
+}
+.summary#efe2a1{
+  background-color: #efe2a1;
+}
+.summary#c4e6ce{
+  background-color: #c4e6ce;
+}
+.summary#add0fb{
+  background-color: #add0fb;
+}
+.summary#cbb1ed{
+  background-color: #cbb1ed;
+} */
+.summaryState{
+  margin-left: 8%;
+  width: 10%;
+}
 .summaryTitle {
   width: 25%;
 }
@@ -207,6 +226,13 @@
 .detailContentClickedStatePeriodBox :first-child {
   margin-right: 30px;
   font-size: large;
+}
+.detailContentClickedStateColorBox{
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  border-radius: 50%;
 }
 .detailContentClickedStateContentBox {
   padding: 20px;
@@ -360,4 +386,49 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.selectBox {
+  display: flex;
+}
+
+.colorBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox_icon {
+  display: flex;
+  width: 18px;
+  height: 18px;
+}
+
+.red .checkbox_icon {
+  background-color: #eeaaaa;
+}
+
+.yellow .checkbox_icon {
+  background-color: #efe2a1;
+}
+
+.green .checkbox_icon {
+  background-color: #c4e6ce;
+}
+
+.blue .checkbox_icon {
+  background-color: #add0fb;
+}
+
+.purple .checkbox_icon {
+  background-color: #cbb1ed;
+  /* margin-right: 8px; */
+}
+
+input[type="checkbox"]:checked + .checkbox_icon::after {
+  content: "✔";
+  color: #555555;
+  font-size: 14px;
+  margin: 0 auto;
 }
