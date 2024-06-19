@@ -1,0 +1,76 @@
+.ganttInnerBox {
+  width: 95%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+}
+
+.dateList {
+  width: 130%;
+  display: flex;
+  color: #333333;
+  border-bottom: 1px solid #ccc;
+}
+
+.curDate {
+  width: 12%;
+  text-align: right;
+  cursor: pointer;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.curDate div {
+  display: flex;
+  flex-direction: column;
+  width: 12%;
+  padding: 10px;
+}
+.curDate.today {
+  font-weight: bold;
+  color: #ed7d31;
+}
+
+.buttonBox {
+  width: 95%;
+}
+
+.okButton {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 5px 0px;
+  padding: 5px 7px;
+  cursor: pointer;
+  font-family: NanumSquareR;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.okButton:hover {
+  background-color: #ed7d31;
+  color: #fff;
+}
+
+.event {
+  margin-bottom: 8px;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.noEvents {
+  padding: 8px;
+  font-style: italic;
+  color: #999;
+}
+
+.ganttChart {
+  display: flex;
+}
+
+.dateTextBox {
+  display: flex;
+}
