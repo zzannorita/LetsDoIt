@@ -23,11 +23,15 @@ const Board = () => {
   const [toggleUpdate, setToggleUpdate] = useState(false);
   const [updateTodoTitle, setUpdateTodoTitle] = useState("");
   const [updateTodoContent, setUpdateTodoContent] = useState("");
+  const [updateTodoColor, setUpdateTodoColor] = useState("");
+  const [updateTodoStarDate, setUpdateTodoStartDate] = useState();
+  const [updateTodoEndDate, setUpdateTodoEndDate] = useState();
   const [color, setColor] = useState("");
 
   const handleColorChange = (event) => {
     const { value } = event.target;
     setColor(value);
+    setUpdateTodoColor(value);
     console.log(color);
   };
 
@@ -168,7 +172,7 @@ const Board = () => {
       boardId: selectedTodo.boardId,
       start: formatDate2(startDate),
       end: formatDate2(endDate),
-      color: color,
+      color: updateTodoColor,
     };
 
     if (userConfirmed) {
@@ -238,6 +242,14 @@ const Board = () => {
     if (selectedTodo) {
       setUpdateTodoTitle(selectedTodo.title);
       setUpdateTodoContent(selectedTodo.content);
+    }
+  }, [selectedTodo]);
+
+  useEffect(() => {
+    if (selectedTodo) {
+      setUpdateTodoColor(selectedTodo.color);
+      setUpdateTodoStartDate(selectedTodo.start);
+      setUpdateTodoEndDate(selectedTodo.end);
     }
   }, [selectedTodo]);
 
@@ -357,7 +369,7 @@ const Board = () => {
                             <div>
                               <ReactDatePicker
                                 locale={ko}
-                                selected={startDate}
+                                selected={updateTodoStarDate}
                                 onChange={(date) => setStartDate(date)}
                                 placeholderText="시작"
                                 className={style.customInput}
@@ -369,7 +381,7 @@ const Board = () => {
                             <div>
                               <ReactDatePicker
                                 locale={ko}
-                                selected={endDate}
+                                selected={updateTodoEndDate}
                                 onChange={(date) => setEndDate(date)}
                                 placeholderText="종료"
                                 className={style.customInput}
@@ -407,6 +419,7 @@ const Board = () => {
                                     name="color"
                                     value={color}
                                     onChange={handleColorChange}
+                                    checked={updateTodoColor === color}
                                   />
                                   <span className={style.checkbox_icon}></span>
                                 </label>
