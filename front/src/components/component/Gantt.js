@@ -33,11 +33,12 @@ const Gantt = () => {
   const [firstDay, setFirstDay] = useState(0); //현재 월의 첫 번째 날의 요일
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [events, setEvents] = useState({});
+  const [events, setEvents] = useState([]);
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearchBoxClick, setIsSearchBoxClick] = useState(false);
   const [isTipBoxClick, setIsTipBoxClick] = useState(false);
+  const [ganttLists, setGanttLists] = useState([{}]);
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -99,14 +100,9 @@ const Gantt = () => {
 
   //날짜 지정 함수
   const handleSelect = (target) => {
-    const today = new Date(); // 현재 날짜를 가져옴
-    const yy = today.getFullYear();
-    const mm = today.getMonth();
-    const dd = today.getDate();
-
-    const selectedDate = `${yy}-${(mm + 1).toString().padStart(2, "0")}-${dd
-      .toString()
-      .padStart(2, "0")}`; // 선택한 날짜 문자열 생성
+    const mm = (month + 1).toString().padStart(2, "0"); // 월을 두 자리로 포맷
+    const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
+    const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
     setSelectedDate(selectedDate); // 선택된 날짜 저장
     setSelectedEvent(null);
     setModalOpen(true);
@@ -121,7 +117,7 @@ const Gantt = () => {
     // console.log("이벤트모달");
   };
 
-  //저장 핸들러
+  // 저장 핸들러
   const handleSaveEvent = (eventData) => {
     setEvents((prevEvents) => {
       const updatedEvents = { ...prevEvents };
@@ -141,7 +137,11 @@ const Gantt = () => {
       updatedEvents[eventData.selectedDate] = dateEvents;
       return updatedEvents;
     });
-    console.log(eventData);
+  };
+
+  const handleAddGanttList = () => {
+    const newGanttList = []; // 새로운 gantt 리스트 배열을 생성
+    setGanttLists((prevGanttLists) => [...prevGanttLists, newGanttList]);
   };
 
   return (
@@ -218,47 +218,52 @@ const Gantt = () => {
               )}
             </div>
             <div className={gntStyle.ganttChart}>
-              {handleDateArr("cur", lastDate, lastDatePrev, firstDay).map(
-                (val) => (
-                  <div
-                    key={`current-${val}`}
-                    className={`${gntStyle.curDate} ${
-                      year === today.getFullYear() &&
-                      month === today.getMonth() &&
-                      val === today.getDate()
-                        ? style.today
-                        : ""
-                    }`}
-                    // onClick={() => handleSelect(val)}
-                  >
-                    {/* {val} */}
-                    <div className={gntStyle.dateTextBox}>
-                      {(
-                        events[
-                          `${year}-${(month + 1)
-                            .toString()
-                            .padStart(2, "0")}-${val
-                            .toString()
-                            .padStart(2, "0")}`
-                        ] || []
-                      ).map((event, index) => (
-                        <div
-                          key={index}
-                          className={style.dateText}
-                          style={{ backgroundColor: event.selectedColor }}
-                          onClick={(e) => handleEventClick(event, e)}
-                        >
-                          {event.modalName}
+              {ganttLists.map((list, index) => (
+                <div className={gntStyle.ganttList}>
+                  {handleDateArr("cur", lastDate, lastDatePrev, firstDay).map(
+                    (val) => (
+                      <div
+                        key={`current-${val}`}
+                        className={`${gntStyle.curDateList} ${
+                          year === today.getFullYear() &&
+                          month === today.getMonth() &&
+                          val === today.getDate()
+                            ? style.today
+                            : ""
+                        }`}
+                        onClick={() => handleSelect(val)}
+                      >
+                        <div className={gntStyle.dateTextBox}>
+                          {(
+                            events[
+                              `${year}-${(month + 1)
+                                .toString()
+                                .padStart(2, "0")}-${val
+                                .toString()
+                                .padStart(2, "0")}`
+                            ] || []
+                          ).map((event, index) => (
+                            <div
+                              key={index}
+                              className={`${gntStyle.dateText} ${
+                                index === 0 ? "" : gntStyle.disabled
+                              }`}
+                              style={{ backgroundColor: event.selectedColor }}
+                              onClick={(e) => handleEventClick(event, e)}
+                            >
+                              {event.modalName}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )
-              )}
+                      </div>
+                    )
+                  )}
+                </div>
+              ))}
             </div>
           </div>
           <div className={gntStyle.buttonBox}>
-            <button className={gntStyle.okButton} onClick={handleSelect}>
+            <button className={gntStyle.okButton} onClick={handleAddGanttList}>
               + 생성하기
             </button>
           </div>

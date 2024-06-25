@@ -69,8 +69,32 @@
 
 .ganttChart {
   display: flex;
+  flex-direction: column;
+}
+
+.ganttList {
+  width: 130%;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.curDateList {
+  width: 400px;
 }
 
 .dateTextBox {
+  height: 40px;
+}
+.dateTextBox:hover {
+  background-color: #ccc;
+}
+
+.dateText {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  height: 40px;
+  font-weight: bold;
+  color: #333;
   display: flex;
+  flex-wrap: wrap;
 }
