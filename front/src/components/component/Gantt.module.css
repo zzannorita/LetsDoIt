@@ -76,6 +76,7 @@
   width: 130%;
   display: flex;
   border-bottom: 1px solid #ccc;
+  height: 40px;
 }
 
 .curDateList {
