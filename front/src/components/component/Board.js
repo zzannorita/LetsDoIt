@@ -18,8 +18,6 @@ const Board = () => {
   const [toggleAdd, setToggleAdd] = useState(false);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoContent, setTodoContent] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [toggleUpdate, setToggleUpdate] = useState(false);
   const [updateTodoTitle, setUpdateTodoTitle] = useState("");
   const [updateTodoContent, setUpdateTodoContent] = useState("");
@@ -27,6 +25,17 @@ const Board = () => {
   const [updateTodoStarDate, setUpdateTodoStartDate] = useState();
   const [updateTodoEndDate, setUpdateTodoEndDate] = useState();
   const [color, setColor] = useState("");
+
+  //datePicker 관련
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    console.log(start, end);
+    setStartDate(start);
+    setEndDate(end);
+  };
+  //
 
   const handleColorChange = (event) => {
     const { value } = event.target;
@@ -94,6 +103,9 @@ const Board = () => {
     return date.toLocaleDateString("en-US", options);
   };
   const formatDate2 = (date) => {
+    if (!(date instanceof Date)) {
+      date = new Date(date);
+    }
     const padZero = (num) => (num < 10 ? `0${num}` : num);
 
     const year = date.getFullYear();
@@ -116,6 +128,7 @@ const Board = () => {
       content: todoContent,
       start: formatDate2(startDate),
       end: formatDate2(endDate),
+      color: color,
     };
 
     fetch("/todo/addSchedule", {
@@ -170,8 +183,8 @@ const Board = () => {
       title: updateTodoTitle,
       content: updateTodoContent,
       boardId: selectedTodo.boardId,
-      start: formatDate2(startDate),
-      end: formatDate2(endDate),
+      start: formatDate2(updateTodoStarDate),
+      end: formatDate2(updateTodoEndDate),
       color: updateTodoColor,
     };
 
@@ -292,7 +305,8 @@ const Board = () => {
                       ></div>
                       <div
                         className={style.summaryCheckBox}
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation(); // 이벤트 버블링 중지
                           handleStateToggle(
                             item.state,
                             item.boardId,
@@ -368,25 +382,17 @@ const Board = () => {
                             <div>기간</div>
                             <div>
                               <ReactDatePicker
+                                selectsRange={true}
+                                className={style.datepicker}
+                                calendarClassName={style.calenderWrapper}
+                                popperClassName={style.calenderPopper}
                                 locale={ko}
+                                dateFormat="yyyy년 MM월 dd일"
                                 selected={updateTodoStarDate}
-                                onChange={(date) => setStartDate(date)}
-                                placeholderText="시작"
-                                className={style.customInput}
-                                calendarClassName={style.customCalendar}
-                                dateFormat="yyyy년 MM월 dd일"
-                              />
-                            </div>
-                            <span>~</span>
-                            <div>
-                              <ReactDatePicker
-                                locale={ko}
-                                selected={updateTodoEndDate}
-                                onChange={(date) => setEndDate(date)}
-                                placeholderText="종료"
-                                className={style.customInput}
-                                calendarClassName={style.customCalendar}
-                                dateFormat="yyyy년 MM월 dd일"
+                                startDate={updateTodoStarDate}
+                                endDate={updateTodoEndDate}
+                                // maxDate={new Date()}
+                                onChange={(date) => handleDateChange(date)}
                               />
                             </div>
                           </div>
@@ -490,27 +496,19 @@ const Board = () => {
                       className={style.detailContentClickedStatePeriodAddBox}
                     >
                       <div>기간</div>
-                      <div>
+                      <div className={style.test}>
                         <ReactDatePicker
+                          selectsRange={true}
+                          className={style.datepicker}
+                          calendarClassName={style.calenderWrapper}
+                          popperClassName={style.calenderPopper}
                           locale={ko}
+                          dateFormat="yyyy년 MM월 dd일"
                           selected={startDate}
-                          onChange={(date) => setStartDate(date)}
-                          placeholderText="시작"
-                          className={style.customInput}
-                          calendarClassName={style.customCalendar}
-                          dateFormat="yyyy년 MM월 dd일"
-                        />
-                      </div>
-                      <span>-</span>
-                      <div>
-                        <ReactDatePicker
-                          locale={ko}
-                          selected={endDate}
-                          onChange={(date) => setEndDate(date)}
-                          placeholderText="종료"
-                          className={style.customInput}
-                          calendarClassName={style.customCalendar}
-                          dateFormat="yyyy년 MM월 dd일"
+                          startDate={startDate}
+                          endDate={endDate}
+                          // maxDate={new Date()}
+                          onChange={(date) => handleDateChange(date)}
                         />
                       </div>
                     </div>
@@ -529,6 +527,31 @@ const Board = () => {
                     >
                       <div>
                         <button onClick={handleAddTodo}>작성</button>
+                      </div>
+                    </div>
+                    <div className={style.selectBox}>
+                      <div className={style.colorBox}>
+                        {[
+                          "#eeaaaa",
+                          "#efe2a1",
+                          "#c4e6ce",
+                          "#add0fb",
+                          "#cbb1ed",
+                        ].map((color) => (
+                          <label
+                            key={color}
+                            className={`${style.checkbox_label} ${style.customColor}`}
+                            style={{ backgroundColor: color }}
+                          >
+                            <input
+                              type="checkbox"
+                              name="color"
+                              value={color}
+                              onChange={handleColorChange}
+                            />
+                            <span className={style.checkbox_icon}></span>
+                          </label>
+                        ))}
                       </div>
                     </div>
                   </div>
