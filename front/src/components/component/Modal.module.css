@@ -50,7 +50,13 @@
   justify-content: space-between;
   border-bottom: 1px solid #cccccc;
   height: 4vh;
+  width: 100%;
   align-items: center;
+}
+.datepicker{
+  width: 85%;
+  border: none;
+  
 }
 
 .periodName {
@@ -58,7 +64,9 @@
   margin-left: 2px;
   color: #333333;
 }
-
+.periodNum{
+  width: 47%;
+}
 .modalTextBox {
   display: flex;
   flex-direction: column;
@@ -94,4 +102,8 @@
   background-color: white;
   font-weight: bold;
   color: #555;
+}
+
+.closeButton{
+  cursor: pointer;
 }
