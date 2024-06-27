@@ -4,6 +4,7 @@ import ReactDatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from "react";
+import { getMonth, getDate } from "date-fns";
 //이미지 import
 import search from "../../img/search.png";
 import nochecked from "../../img/nochecked.png";
@@ -34,6 +35,9 @@ const Board = () => {
     console.log(start, end);
     setStartDate(start);
     setEndDate(end);
+
+    setUpdateTodoStartDate(start);
+    setUpdateTodoEndDate(end);
   };
   //
 
@@ -251,18 +255,20 @@ const Board = () => {
       });
   }, [sendData, currentPage]);
 
+  // useEffect(() => {
+  //   if (selectedTodo) {
+  //     setUpdateTodoTitle(selectedTodo.title);
+  //     setUpdateTodoContent(selectedTodo.content);
+  //   }
+  // }, [selectedTodo]);
+
   useEffect(() => {
     if (selectedTodo) {
       setUpdateTodoTitle(selectedTodo.title);
       setUpdateTodoContent(selectedTodo.content);
-    }
-  }, [selectedTodo]);
-
-  useEffect(() => {
-    if (selectedTodo) {
       setUpdateTodoColor(selectedTodo.color);
-      setUpdateTodoStartDate(selectedTodo.start);
-      setUpdateTodoEndDate(selectedTodo.end);
+      setUpdateTodoStartDate(new Date(selectedTodo.start));
+      setUpdateTodoEndDate(new Date(selectedTodo.end));
     }
   }, [selectedTodo]);
 
@@ -379,8 +385,8 @@ const Board = () => {
                               style.detailContentClickedStatePeriodAddBox
                             }
                           >
-                            <div>기간</div>
-                            <div>
+                            <div className={style.periodTitle}>기간</div>
+                            <div className={style.datePickerBox}>
                               <ReactDatePicker
                                 selectsRange={true}
                                 className={style.datepicker}
