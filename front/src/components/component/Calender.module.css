@@ -299,10 +299,33 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 20px;
-  background-color: #efe2a1;
+  /* background-color: #efe2a1; */
   width: 120px;
   height: 35px;
   padding: 15px;
+  border-radius: 3px;
+}
+.searchResultBox.color-ccc {
+  background-color: #ccc;
+}
+
+.searchResultBox.color-eeaaaa {
+  background-color: #eeaaaa;
+}
+
+.searchResultBox.color-efe2a1 {
+  background-color: #efe2a1;
+}
+
+.searchResultBox.color-c4e6ce {
+  background-color: #c4e6ce;
+}
+
+.searchResultBox.color-add0fb {
+  background-color: #add0fb;
+}
+.searchResultBox.color-cbb1ed {
+  background-color: #cbb1ed;
 }
 
 .searchResultName {
@@ -314,5 +337,5 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .searchResultDate {
   font-weight: bold;
   color: #777;
-  font-size: 12px;
+  font-size: 10px;
 }

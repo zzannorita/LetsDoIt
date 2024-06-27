@@ -66,13 +66,19 @@ router.post("/addSchedule", (req, res) => {
   const end = req.body.end;
   const title = req.body.title;
   const content = req.body.content;
+  let color;
+  if (req.body.color) {
+    color = req.body.color;
+  } else {
+    color = "#ccc";
+  }
   console.log(start, end);
 
   if (usercode) {
     // user코드 받아온 경우 즉 로그인이 된 어떤 상태.
     connection.query(
-      "INSERT INTO todo (usercode, start, end, title, content) VALUES (?, ?, ?, ?, ?)",
-      [usercode, start, end, title, content],
+      "INSERT INTO todo (usercode, start, end, title, content, color) VALUES (?, ?, ?, ?, ?, ?)",
+      [usercode, start, end, title, content, color],
       function (error, results, fields) {
         //results에 삽입 작업에 대한 정보가 들어간다.
         //영향을 받은 행의 수 => insert의 경우엔 1임,

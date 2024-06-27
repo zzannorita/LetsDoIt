@@ -23,6 +23,8 @@ const MONTH_LIST = [
 ];
 
 const Calender = () => {
+  const userCode = "5811";
+
   const [newDate, setNewDate] = useState(new Date()); //현재 날짜 상태 저장
   const [today, setToday] = useState(new Date());
   const [year, setYear] = useState(0); //현재 연도 상태 저장
@@ -33,11 +35,15 @@ const Calender = () => {
   const [firstDay, setFirstDay] = useState(0); //현재 월의 첫 번째 날의 요일
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [events, setEvents] = useState({}); // 이벤트 목록
+  const [selectedEndDate, setSelectedEndDate] = useState("");
+  const [events, setEvents] = useState({});
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearchBoxClick, setIsSearchBoxClick] = useState(false);
   const [isTipBoxClick, setIsTipBoxClick] = useState(false);
+  const [receivedData, setReceivedData] = useState({ results: [] });
+  const [sendData, setSendData] = useState({ userCode: userCode });
+  const [selectedColor, setSelectedColor] = useState("#ccc"); // 검색용 컬러
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -102,20 +108,67 @@ const Calender = () => {
     const mm = (month + 1).toString().padStart(2, "0"); // 월을 두 자리로 포맷
     const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
     const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
+    const selectedEndDate = `${year}-${mm}-${dd}`;
     setSelectedDate(selectedDate); // 선택된 날짜 저장
-    setSelectedEvent(null); //
+    setSelectedEndDate(selectedEndDate);
+    setSelectedEvent(null);
     setModalOpen(true);
     // console.log("날짜모달");
   };
 
   //이벤트 모달 오픈 함수
   const handleEventClick = (event, e) => {
-    e.stopPropagation(); //이벤트 전파 중지
+    console.log("오픈", event);
+    e.stopPropagation();
     setSelectedEvent(event);
     setSelectedDate(event.selectedDate);
+    setSelectedEndDate(event.selectedEndDate);
     setEventModalOpen(true);
     // console.log("이벤트모달");
     console.log(event.id);
+  };
+
+  //이벤트 모달 오픈 함수2 검색했을때용
+  const handleEventClick2 = (item, e) => {
+    console.log("오픈2", item, e);
+    //e.stopPropagation();
+    // setSelectedEvent();
+    // setSelectedDate();
+    // setSelectedEndDate();
+    // setEventModalOpen(true);
+    // console.log("이벤트모달");
+  };
+
+  //체크박스 중복 방지
+  const checkOnlyOne = (checkThis) => {
+    const checkBoxes = document.getElementsByName("color");
+    let isChecked = checkThis.checked;
+
+    for (let i = 0; i < checkBoxes.length; i++) {
+      if (checkBoxes[i] !== checkThis) {
+        checkBoxes[i].checked = false;
+      }
+    }
+
+    if (isChecked) {
+      setSelectedColor(checkThis.value);
+    } else {
+      setSelectedColor("#ccc");
+    }
+  };
+
+  //날짜 포매팅 함수
+  const formatDate2 = (date) => {
+    const padZero = (num) => (num < 10 ? `0${num}` : num);
+
+    const year = date.getFullYear();
+    const month = padZero(date.getMonth() + 1);
+    const day = padZero(date.getDate());
+    const hours = padZero(date.getHours());
+    const minutes = padZero(date.getMinutes());
+    const seconds = padZero(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   };
 
   //저장 핸들러
@@ -141,7 +194,76 @@ const Calender = () => {
       // 업데이트된 이벤트 배열을 events 객체에 할당
       return updatedEvents;
     });
+
+    console.log(events);
   };
+
+  // 검색어가 변경될 때마다 필터링
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredResults, setFilteredResults] = useState(receivedData.results);
+  useEffect(() => {
+    const results = receivedData.results.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredResults(results);
+  }, [searchQuery, receivedData.results]);
+
+  useEffect(() => {
+    fetch("/todo/searchSchedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // 시작 날짜(start)가 빠른 순서대로 정렬
+        const sortedResults = data.results.sort((a, b) => {
+          return new Date(a.start) - new Date(b.start);
+        });
+
+        setReceivedData({ ...data, results: sortedResults });
+        console.log("리시브드 데이터", receivedData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [sendData]);
+
+  useEffect(() => {
+    if (receivedData && receivedData.results) {
+      console.log("리시브 데이터 확인", receivedData.results);
+      const updatedEvents = { ...events };
+      receivedData.results.forEach((result) => {
+        const eventData = {
+          id: result.boardId,
+          modalName: result.title,
+          selectedDate: result.start.substring(0, 10),
+          selectedEndDate: result.end.substring(0, 10),
+          selectedColor: result.color,
+          modalText: result.content,
+        };
+        console.log(eventData.selectedDate);
+        // 이미 해당 날짜에 이벤트가 있는지 확인 후 추가
+        if (!updatedEvents[result.start.substring(0, 10)]) {
+          updatedEvents[result.start.substring(0, 10)] = [eventData];
+        } else {
+          // 중복 추가 방지
+          const existingEventIndex = updatedEvents[
+            result.start.substring(0, 10)
+          ].findIndex((event) => event.id === result.boardId);
+          if (existingEventIndex === -1) {
+            updatedEvents[result.start.substring(0, 10)].push(eventData);
+          }
+        }
+      });
+
+      setEvents(updatedEvents);
+
+      console.log(events);
+    }
+  }, [receivedData]);
 
   return (
     <div className={style.container}>
@@ -167,7 +289,7 @@ const Calender = () => {
         </div>
         <div className={style.topBox}>
           <div className={style.nameBox}>
-            <span className={styles.highlight}>5811</span>님의 캘린더
+            <span className={styles.highlight}>{userCode}</span>님의 캘린더
           </div>
           {/* 체크박스 */}
           <div className={style.selectBox}>
@@ -179,7 +301,12 @@ const Calender = () => {
                     className={`${style.checkbox_label} ${style.customColor}`}
                     style={{ backgroundColor: color }}
                   >
-                    <input type="checkbox" name="color" value={color} />
+                    <input
+                      type="checkbox"
+                      name="color"
+                      value={color}
+                      onChange={(e) => checkOnlyOne(e.target)}
+                    />
                     <span className={style.checkbox_icon}></span>
                   </label>
                 )
@@ -301,16 +428,42 @@ const Calender = () => {
               className={style.searchInput}
               type="text"
               placeholder="검색어를 입력하세요."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <div className={style.searchResultBox}>
-            <div className={style.searchResultName}>짱유디생일</div>
-            <div className={style.searchResultDate}>2024-05-18</div>
-          </div>
-          <div className={style.searchResultBox}>
-            <div className={style.searchResultName}>짱유디생일</div>
-            <div className={style.searchResultDate}>2024-05-18</div>
-          </div>
+          {filteredResults.map((item) => {
+            const colorClass = `color-${item.color.replace("#", "")}`;
+            return !selectedColor ? (
+              item.color === "#ccc" ? (
+                <div
+                  className={`${style.searchResultBox} ${style[colorClass]}`}
+                  key={item.title}
+                  onClick={(e) => handleEventClick(item, e)}
+                >
+                  <div className={style.searchResultName}>{item.title}</div>
+                  <div className={style.searchResultDate}>
+                    {item.start.split("T")[0]}~{item.end.split("T")[0]}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )
+            ) : selectedColor === item.color ? (
+              <div
+                className={`${style.searchResultBox} ${style[colorClass]}`}
+                key={item.title}
+                onClick={(e) => handleEventClick2(e)}
+              >
+                <div className={style.searchResultName}>{item.title}</div>
+                <div className={style.searchResultDate}>
+                  {item.start.split("T")[0]}~{item.end.split("T")[0]}
+                </div>
+              </div>
+            ) : (
+              <></>
+            );
+          })}
         </div>
       )}
       {/* 새 일정 클릭 모달 */}
@@ -318,6 +471,7 @@ const Calender = () => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         selectedDate={selectedDate}
+        selectedEndDate={selectedEndDate}
         onSave={handleSaveEvent}
       />
       {/* 기존 일정 클릭 모달 */}
@@ -326,6 +480,7 @@ const Calender = () => {
           isOpen={eventModalOpen}
           onClose={() => setEventModalOpen(false)}
           selectedDate={selectedDate}
+          selectedEndDate={selectedEndDate}
           selectedEvent={selectedEvent}
           onSave={handleSaveEvent}
           // event={selectedEvent}

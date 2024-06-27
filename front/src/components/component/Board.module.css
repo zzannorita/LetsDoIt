@@ -47,11 +47,13 @@
   flex-direction: row;
   padding-bottom: 15px;
   border-bottom: 1px solid rgb(173, 173, 173);
+  justify-content: center;
 }
 .summaryBox {
   display: flex;
   flex-direction: column;
   width: 62%;
+  min-width: 707px;
   /* justify-content: center; */
   align-items: center;
   position: relative;
@@ -86,37 +88,23 @@
 }
 .summaryCheckBox {
   width: 15%;
-  height: 15px; /* 이미지가 고정될 높이 */
-  overflow: hidden; /* 부모 요소를 벗어나는 부분은 숨김 */
-  position: relative; /* 포지션을 상대적으로 설정하여 자식 요소를 위치시킴 */
+  height: 15px; 
+  overflow: hidden; 
+  position: relative;
 }
 .summaryCheckBox img {
-  width: 18px; /* 이미지의 너비를 부모 요소에 맞춤 */
-  height: 100%; /* 이미지의 높이를 부모 요소에 맞춤 */
-  object-fit: cover; /* 이미지를 부모 요소 내에 맞춰서 자르지 않고 보여줌 */
-  position: absolute; /* 이미지의 포지션을 절대적으로 설정하여 부모 요소 내에서 위치시킴 */
-  top: 50%; /* 부모 요소의 상단부터 50% 위치에 */
-  left: 50%; /* 부모 요소의 왼쪽부터 50% 위치에 */
+  width: 18px; 
+  height: 100%; 
+  object-fit: cover; 
+  position: absolute;
+  top: 50%;
+  left: 50%; 
   transform: translate(
     -50%,
     -50%
-  ); /* 이미지의 중심을 부모 요소의 중심에 위치시킴 */
+  ); 
 }
-/* .summary#eeaaaa{
-  background-color: #eeaaaa;
-}
-.summary#efe2a1{
-  background-color: #efe2a1;
-}
-.summary#c4e6ce{
-  background-color: #c4e6ce;
-}
-.summary#add0fb{
-  background-color: #add0fb;
-}
-.summary#cbb1ed{
-  background-color: #cbb1ed;
-} */
+
 .summaryState {
   margin-left: 8%;
   width: 10%;
@@ -167,9 +155,11 @@
 }
 
 .detailBox {
+  
   display: flex;
   flex-direction: column;
-  width: 32%;
+  width: 30%;
+  min-width: 342.53px;
 }
 .detailSearchIcon {
   width: 25px;
@@ -182,11 +172,12 @@
 }
 
 .detailContentBox {
+  width: 95%;
   border: 1px solid rgb(222, 222, 222);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   height: 500px;
-  padding: 20px;
+  padding: 0 2.5% 10px 2.5%;
   padding-top: 8px;
   display: flex;
   align-items: center;
@@ -288,9 +279,21 @@
   width: 35px;
   font-size: large;
 }
-.detailContentClickedStatePeriodAddBox div:nth-child(2),
-.detailContentClickedStatePeriodAddBox div:nth-child(3) {
-  width: 40%;
+.detailContentClickedStatePeriodAddBox div:nth-child(1) {
+  width: 230px;
+}
+.test{
+}
+.datepicker{
+  width: 100%;
+  font-size: 13px;
+  border: none;
+}
+.calenderPopper{
+  background-attachment: black;
+}
+.calenderWrapper{
+  background-color: black;
 }
 .detailContentClickedStateContentAddBox {
   width: auto;
@@ -310,7 +313,7 @@
 
 .detailContentClickedStateAddButtonBox div {
   position: absolute;
-  bottom: 0px;
+  bottom: 10px;
   right: 0px;
 }
 .detailContentClickedStateAddButtonBox div button {
@@ -326,73 +329,13 @@
   color: #fff;
 }
 
-.customInput {
-  width: 88px;
-  /* padding: 10px; */
-  font-size: 11px;
-  /* border: 1px solid #ccc; */
-  border: none;
-  /* border-radius: 4px; */
-}
 
-/* input 필드가 포커스 되었을 때 */
-.customInput:focus {
-  border-color: #ed7d31;
-  outline: none;
-}
-
-.customCalendar {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  width: 280px; /* 원하는 너비로 설정 */
-}
-
-.customCalendar .react-datepicker__header {
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
-}
-
-.customCalendar .react-datepicker__day--selected,
-.customCalendar .react-datepicker__day--in-selecting-range,
-.customCalendar .react-datepicker__day--in-range {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.customCalendar .react-datepicker__day--today {
-  font-weight: bold;
-  color: #d32f2f;
-}
-
-.customCalendar .react-datepicker__day {
-  border-radius: 4px;
-  padding: 10px;
-}
-
-.customCalendar .react-datepicker__day:hover {
-  background-color: #f1f1f1;
-}
-
-/* 날짜들이 캘린더 모달창 밖으로 튀어나가는 문제 해결 */
-.customCalendar .react-datepicker__month-container {
-  width: 100%;
-}
-
-.customCalendar .react-datepicker__day-names,
-.customCalendar .react-datepicker__week {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
 
 .selectBox {
   display: flex;
   position: absolute;
-  bottom: 15px;
-  left: 10px;
+  bottom: 0px;
+  left: 15px;
 }
 
 .colorBox {
@@ -435,3 +378,4 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   font-size: 14px;
   margin: 0 auto;
 }
+
