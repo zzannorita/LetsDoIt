@@ -1,20 +1,28 @@
 .ganttInnerBox {
   width: 95%;
-  height: 400px;
+  height: 450px;
   display: flex;
   flex-direction: column;
-  overflow-x: scroll; /* x축 스크롤바는 보이게 유지 */
+  overflow-x: scroll;
+  overflow-y: auto;
 }
 
-/* .ganttInnerBox::-webkit-scrollbar {
-  width: 3px;
+.ganttInnerBox::-webkit-scrollbar {
+  width: 0 !important;
+  height: 10px;
+}
+.ganttInnerBox::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* 스크롤바 트랙 배경색 */
 }
 
 .ganttInnerBox::-webkit-scrollbar-thumb {
-  height: 1px;
-  background: #ccc;
-  border-radius: 10px;
-} */
+  background-color: #ccc; /* 스크롤바 썸 배경색 */
+  border-radius: 20px; /* 스크롤바 썸 모서리 반경 */
+}
+
+.ganttInnerBox::-webkit-scrollbar-thumb:hover {
+  background-color: #999; /* 스크롤바 썸 호버 배경색 */
+}
 
 .dateList {
   width: 200%;
