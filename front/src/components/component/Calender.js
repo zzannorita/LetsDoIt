@@ -173,10 +173,12 @@ const Calender = () => {
 
   //저장 핸들러
   const handleSaveEvent = (eventData) => {
+    //이벤트 데이터를 이벤트 목록에 상태 업데이트
     setEvents((prevEvents) => {
-      const updatedEvents = { ...prevEvents };
+      const updatedEvents = { ...prevEvents }; //기존 events 객체 복사
       const dateEvents = updatedEvents[eventData.selectedDate] || [];
       const eventIndex = dateEvents.findIndex(
+        //이벤트 아이디들 중에 해당 이벤트 아이디와 일치하는 이벤트 찾기
         (event) => event.id === eventData.id
       );
 
@@ -189,6 +191,7 @@ const Calender = () => {
       }
 
       updatedEvents[eventData.selectedDate] = dateEvents;
+      // 업데이트된 이벤트 배열을 events 객체에 할당
       return updatedEvents;
     });
 
@@ -375,6 +378,7 @@ const Calender = () => {
                           className={style.dateText}
                           style={{ backgroundColor: event.selectedColor }}
                           onClick={(e) => handleEventClick(event, e)}
+                          // 새로운 함수 생성 방지, e
                         >
                           {event.modalName}
                         </div>
@@ -462,6 +466,7 @@ const Calender = () => {
           })}
         </div>
       )}
+      {/* 새 일정 클릭 모달 */}
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -469,6 +474,7 @@ const Calender = () => {
         selectedEndDate={selectedEndDate}
         onSave={handleSaveEvent}
       />
+      {/* 기존 일정 클릭 모달 */}
       {selectedEvent && (
         <Modal
           isOpen={eventModalOpen}

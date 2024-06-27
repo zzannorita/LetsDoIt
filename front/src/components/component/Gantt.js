@@ -35,12 +35,12 @@ const Gantt = () => {
   const [firstDay, setFirstDay] = useState(0); //현재 월의 첫 번째 날의 요일
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedEndDate, setSelectedEndDate] = useState("");
   const [events, setEvents] = useState([]);
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearchBoxClick, setIsSearchBoxClick] = useState(false);
   const [isTipBoxClick, setIsTipBoxClick] = useState(false);
-  const [ganttLists, setGanttLists] = useState([{}]);
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -102,21 +102,27 @@ const Gantt = () => {
 
   //날짜 지정 함수
   const handleSelect = (target) => {
-    const mm = (month + 1).toString().padStart(2, "0"); // 월을 두 자리로 포맷
-    const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
-    const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, "0"); // 월을 두 자리로 포맷
+    const day = today.getDate().toString().padStart(2, "0"); // 일을 두 자리로 포맷
+    const selectedDate = `${year}-${month}-${day}`; // 선택한 날짜 문자열 생성
     setSelectedDate(selectedDate); // 선택된 날짜 저장
+    setSelectedEndDate(selectedEndDate);
     setSelectedEvent(null);
     setModalOpen(true);
   };
 
   //이벤트 모달 오픈 함수
   const handleEventClick = (event, e) => {
+    console.log("오픈", event);
     e.stopPropagation();
     setSelectedEvent(event);
-    setSelectedDate(event.selectedDate);
+    setSelectedDate(event.selectedDate); // 이벤트 객체에서 실제 필드에 따라 수정 필요
+    setSelectedEndDate(event.selectedEndDate);
     setEventModalOpen(true);
     // console.log("이벤트모달");
+    console.log(event.id);
   };
 
   // 저장 핸들러
@@ -141,14 +147,24 @@ const Gantt = () => {
     });
   };
 
-  const handleAddGanttList = () => {
-    const newGanttList = []; // 새로운 gantt 리스트 배열을 생성
-    setGanttLists((prevGanttLists) => [...prevGanttLists, newGanttList]);
-  };
-
   //게시물(스케줄) 받아오기 (데이터베이스로 부터)
   const [sendData, setSendData] = useState({ userCode: userCode });
   const [receivedData, setReceivedData] = useState({ results: [] });
+
+  //날짜 포매팅 함수
+  const formatDate2 = (date) => {
+    const padZero = (num) => (num < 10 ? `0${num}` : num);
+
+    const year = date.getFullYear();
+    const month = padZero(date.getMonth() + 1);
+    const day = padZero(date.getDate());
+    const hours = padZero(date.getHours());
+    const minutes = padZero(date.getMinutes());
+    const seconds = padZero(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
   useEffect(() => {
     fetch("/todo/searchSchedule", {
       method: "POST",
@@ -165,12 +181,47 @@ const Gantt = () => {
         });
 
         setReceivedData({ ...data, results: sortedResults });
-        console.log("리시브드 데이터(간트)", receivedData);
+        // console.log("리시브드 데이터(간트)", receivedData);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, [sendData]);
+
+  //초디코드복붙
+  useEffect(() => {
+    if (receivedData && receivedData.results) {
+      console.log("리시브 데이터 확인", receivedData.results);
+      const updatedEvents = { ...events };
+      receivedData.results.forEach((result) => {
+        const eventData = {
+          id: result.boardId,
+          modalName: result.title,
+          selectedDate: result.start.substring(0, 10),
+          selectedEndDate: result.end.substring(0, 10),
+          selectedColor: result.color,
+          modalText: result.content,
+        };
+        console.log(eventData.selectedDate);
+        // 이미 해당 날짜에 이벤트가 있는지 확인 후 추가
+        if (!updatedEvents[result.start.substring(0, 10)]) {
+          updatedEvents[result.start.substring(0, 10)] = [eventData];
+        } else {
+          // 중복 추가 방지
+          const existingEventIndex = updatedEvents[
+            result.start.substring(0, 10)
+          ].findIndex((event) => event.id === result.boardId);
+          if (existingEventIndex === -1) {
+            updatedEvents[result.start.substring(0, 10)].push(eventData);
+          }
+        }
+      });
+
+      setEvents(updatedEvents);
+
+      console.log(events);
+    }
+  }, [receivedData]);
 
   return (
     <div className={style.container}>
@@ -246,52 +297,60 @@ const Gantt = () => {
               )}
             </div>
             <div className={gntStyle.ganttChart}>
-              {ganttLists.map((list, index) => (
-                <div className={gntStyle.ganttList}>
-                  {handleDateArr("cur", lastDate, lastDatePrev, firstDay).map(
-                    (val) => (
+              <div className={gntStyle.ganttListBox}>
+                {handleDateArr("cur", lastDate, lastDatePrev, firstDay).map(
+                  (val) => {
+                    const eventsForDate =
+                      events[
+                        `${year}-${(month + 1)
+                          .toString()
+                          .padStart(2, "0")}-${val.toString().padStart(2, "0")}`
+                      ] || [];
+
+                    return (
                       <div
-                        key={`current-${val}`}
-                        className={`${gntStyle.curDateList} ${
-                          year === today.getFullYear() &&
-                          month === today.getMonth() &&
-                          val === today.getDate()
-                            ? style.today
-                            : ""
-                        }`}
-                        onClick={() => handleSelect(val)}
+                        key={`ganttList-${val}`}
+                        className={gntStyle.ganttList}
                       >
-                        <div className={gntStyle.dateTextBox}>
-                          {(
-                            events[
-                              `${year}-${(month + 1)
-                                .toString()
-                                .padStart(2, "0")}-${val
-                                .toString()
-                                .padStart(2, "0")}`
-                            ] || []
-                          ).map((event, index) => (
+                        {eventsForDate.map((event, index) => {
+                          const startDate = new Date(event.selectedDate);
+                          const endDate = new Date(event.selectedEndDate);
+
+                          // '일' 값 가져오기
+                          const startDay = startDate.getDate();
+                          const endDay = endDate.getDate();
+
+                          // selectedEndDate와 selectedDate의 '일' 차이 계산
+                          const dayDifference = endDay - startDay;
+
+                          // selectedEndDate와 selectedDate가 동일한 경우
+                          const width =
+                            startDay === endDay ? 57 : dayDifference * 57;
+
+                          return (
                             <div
-                              key={index}
-                              className={`${gntStyle.dateText} ${
-                                index === 0 ? "" : gntStyle.disabled
-                              }`}
-                              style={{ backgroundColor: event.selectedColor }}
+                              key={`event-${index}`}
+                              className={gntStyle.dateText}
+                              style={{
+                                backgroundColor: event.selectedColor,
+                                marginLeft: `${(startDay - 1) * 57}px`, // 왼쪽 마진 설정
+                                width: `${width}px`, // width 설정
+                              }}
                               onClick={(e) => handleEventClick(event, e)}
                             >
                               {event.modalName}
                             </div>
-                          ))}
-                        </div>
+                          );
+                        })}
                       </div>
-                    )
-                  )}
-                </div>
-              ))}
+                    );
+                  }
+                )}
+              </div>
             </div>
           </div>
           <div className={gntStyle.buttonBox}>
-            <button className={gntStyle.okButton} onClick={handleAddGanttList}>
+            <button className={gntStyle.okButton} onClick={handleSelect}>
               + 생성하기
             </button>
           </div>
@@ -339,6 +398,7 @@ const Gantt = () => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         selectedDate={selectedDate}
+        selectedEndDate={selectedEndDate}
         onSave={handleSaveEvent}
       />
       {selectedEvent && (
@@ -347,6 +407,7 @@ const Gantt = () => {
           onClose={() => setEventModalOpen(false)}
           selectedDate={selectedDate}
           selectedEvent={selectedEvent}
+          selectedEndDate={selectedEndDate}
           onSave={handleSaveEvent}
           // event={selectedEvent}
         />
