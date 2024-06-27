@@ -3,30 +3,34 @@
   height: 400px;
   display: flex;
   flex-direction: column;
-  overflow-x: scroll;
+  overflow-x: scroll; /* x축 스크롤바는 보이게 유지 */
 }
 
+/* .ganttInnerBox::-webkit-scrollbar {
+  width: 3px;
+}
+
+.ganttInnerBox::-webkit-scrollbar-thumb {
+  height: 1px;
+  background: #ccc;
+  border-radius: 10px;
+} */
+
 .dateList {
-  width: 130%;
+  width: 200%;
   display: flex;
   color: #333333;
   border-bottom: 1px solid #ccc;
 }
 
 .curDate {
-  width: 12%;
-  text-align: right;
-  cursor: pointer;
-  padding: 10px;
+  width: 13%;
+  /* text-align: right; */
+  padding: 10px 0;
+  text-align: center;
   font-weight: bold;
 }
 
-.curDate div {
-  display: flex;
-  flex-direction: column;
-  width: 12%;
-  padding: 10px;
-}
 .curDate.today {
   font-weight: bold;
   color: #ed7d31;
@@ -53,49 +57,39 @@
   color: #fff;
 }
 
-.event {
-  margin-bottom: 8px;
-  padding: 8px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.noEvents {
-  padding: 8px;
-  font-style: italic;
-  color: #999;
-}
-
 .ganttChart {
   display: flex;
   flex-direction: column;
 }
 
-.ganttList {
+.ganttListBox {
   width: 130%;
   display: flex;
-  border-bottom: 1px solid #ccc;
-  height: 40px;
+  flex-direction: column;
+  height: 20px;
 }
 
-.curDateList {
-  width: 400px;
-}
-
-.dateTextBox {
-  height: 40px;
-}
-.dateTextBox:hover {
-  background-color: #ccc;
+.ganttListBox > div {
+  width: 100%;
+  /* border-bottom: 1px solid #ccc; */
 }
 
 .dateText {
-  width: 100%;
-  border-bottom: 1px solid #ccc;
-  height: 40px;
-  font-weight: bold;
-  color: #333;
+  height: 30px;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  /* justify-content: center; */
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  border-radius: 3px;
+  margin: 3px 0;
+  padding-left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dateText:hover {
+  font-size: 15px;
+  cursor: pointer;
 }
