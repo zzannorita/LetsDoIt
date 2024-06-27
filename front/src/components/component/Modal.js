@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Modal.module.css";
 import style from "./Calender.module.css";
+// import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Modal = ({ isOpen, onClose, selectedDate, onSave, selectedEvent }) => {
   const [modalName, setModalName] = useState("");
   const [modalText, setModalText] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  // const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
     if (isOpen) {
+      // 기존 일정 모달 클릭 시
       if (selectedEvent) {
         setModalName(selectedEvent.modalName);
         setModalText(selectedEvent.modalText);
         setSelectedColor(selectedEvent.selectedColor);
         setIsEdit(true);
       } else {
+        // 새 일정 모달 클릭 시
         // 모달이 열릴 때 상태를 초기화
         setModalName("");
         setSelectedColor("");
@@ -25,6 +30,7 @@ const Modal = ({ isOpen, onClose, selectedDate, onSave, selectedEvent }) => {
     }
   }, [isOpen, selectedEvent]);
 
+  //모달이 닫혀있을 때 불필요한 렌더링 방지
   if (!isOpen) return null;
 
   //체크박스 중복 방지
@@ -49,6 +55,7 @@ const Modal = ({ isOpen, onClose, selectedDate, onSave, selectedEvent }) => {
       modalText,
     };
     onSave(eventData);
+    //모달에 입력된 정보 eventData 저장
     onClose();
   };
 
@@ -72,6 +79,13 @@ const Modal = ({ isOpen, onClose, selectedDate, onSave, selectedEvent }) => {
           <div className={styles.modalPeriodBox}>
             <div className={styles.periodName}>기간</div>
             <div className={styles.periodNum}>{selectedDate}</div>
+            {/* <div>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                dateFormat="yyyy-MM-dd"
+              />
+            </div> */}
             <div className={style.colorBox}>
               {["#eeaaaa", "#efe2a1", "#c4e6ce", "#add0fb", "#cbb1ed"].map(
                 (color) => (
