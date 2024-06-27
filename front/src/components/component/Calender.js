@@ -33,7 +33,7 @@ const Calender = () => {
   const [firstDay, setFirstDay] = useState(0); //현재 월의 첫 번째 날의 요일
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-  const [events, setEvents] = useState({});
+  const [events, setEvents] = useState({}); // 이벤트 목록
   const [eventModalOpen, setEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearchBoxClick, setIsSearchBoxClick] = useState(false);
@@ -103,14 +103,14 @@ const Calender = () => {
     const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
     const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
     setSelectedDate(selectedDate); // 선택된 날짜 저장
-    setSelectedEvent(null);
+    setSelectedEvent(null); //
     setModalOpen(true);
     // console.log("날짜모달");
   };
 
   //이벤트 모달 오픈 함수
   const handleEventClick = (event, e) => {
-    e.stopPropagation();
+    e.stopPropagation(); //이벤트 전파 중지
     setSelectedEvent(event);
     setSelectedDate(event.selectedDate);
     setEventModalOpen(true);
@@ -120,10 +120,12 @@ const Calender = () => {
 
   //저장 핸들러
   const handleSaveEvent = (eventData) => {
+    //이벤트 데이터를 이벤트 목록에 상태 업데이트
     setEvents((prevEvents) => {
-      const updatedEvents = { ...prevEvents };
+      const updatedEvents = { ...prevEvents }; //기존 events 객체 복사
       const dateEvents = updatedEvents[eventData.selectedDate] || [];
       const eventIndex = dateEvents.findIndex(
+        //이벤트 아이디들 중에 해당 이벤트 아이디와 일치하는 이벤트 찾기
         (event) => event.id === eventData.id
       );
 
@@ -136,6 +138,7 @@ const Calender = () => {
       }
 
       updatedEvents[eventData.selectedDate] = dateEvents;
+      // 업데이트된 이벤트 배열을 events 객체에 할당
       return updatedEvents;
     });
   };
@@ -248,6 +251,7 @@ const Calender = () => {
                           className={style.dateText}
                           style={{ backgroundColor: event.selectedColor }}
                           onClick={(e) => handleEventClick(event, e)}
+                          // 새로운 함수 생성 방지, e
                         >
                           {event.modalName}
                         </div>
@@ -309,12 +313,14 @@ const Calender = () => {
           </div>
         </div>
       )}
+      {/* 새 일정 클릭 모달 */}
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         selectedDate={selectedDate}
         onSave={handleSaveEvent}
       />
+      {/* 기존 일정 클릭 모달 */}
       {selectedEvent && (
         <Modal
           isOpen={eventModalOpen}
