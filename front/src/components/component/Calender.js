@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import style from "./Calender.module.css";
 import styles from "../navi/Login.module.css";
-import left from "../../img/left.png";
-import right from "../../img/right.png";
+import left from "../../img/left2.png";
+import right from "../../img/right2.png";
 import search from "../../img/search.png";
 import Modal from "./Modal";
 
@@ -125,6 +125,7 @@ const Calender = () => {
     setSelectedEndDate(event.selectedEndDate);
     setEventModalOpen(true);
     // console.log("이벤트모달");
+    console.log(event.id);
   };
 
   //이벤트 모달 오픈 함수2 검색했을때용
