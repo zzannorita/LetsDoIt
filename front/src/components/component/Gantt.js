@@ -23,6 +23,8 @@ const MONTH_LIST = [
 ];
 
 const Gantt = () => {
+  const userCode = "5811";
+
   const [newDate, setNewDate] = useState(new Date()); //현재 날짜 상태 저장
   const [today, setToday] = useState(new Date());
   const [year, setYear] = useState(0); //현재 연도 상태 저장
@@ -143,6 +145,32 @@ const Gantt = () => {
     const newGanttList = []; // 새로운 gantt 리스트 배열을 생성
     setGanttLists((prevGanttLists) => [...prevGanttLists, newGanttList]);
   };
+
+  //게시물(스케줄) 받아오기 (데이터베이스로 부터)
+  const [sendData, setSendData] = useState({ userCode: userCode });
+  const [receivedData, setReceivedData] = useState({ results: [] });
+  useEffect(() => {
+    fetch("/todo/searchSchedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // 시작 날짜(start)가 빠른 순서대로 정렬
+        const sortedResults = data.results.sort((a, b) => {
+          return new Date(a.start) - new Date(b.start);
+        });
+
+        setReceivedData({ ...data, results: sortedResults });
+        console.log("리시브드 데이터(간트)", receivedData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [sendData]);
 
   return (
     <div className={style.container}>
