@@ -333,7 +333,7 @@ const Gantt = () => {
                               className={gntStyle.dateText}
                               style={{
                                 backgroundColor: event.selectedColor,
-                                marginLeft: `${(startDay - 1) * 57}px`, // 왼쪽 마진 설정
+                                marginLeft: `${startDay * 57}px`, // 왼쪽 마진 설정
                                 width: `${width}px`, // width 설정
                               }}
                               onClick={(e) => handleEventClick(event, e)}
