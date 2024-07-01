@@ -355,26 +355,27 @@ const Gantt = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div className={style.topTipBox}>
-        <div
-          className={styles.tipBox}
-          onClick={() => setIsTipBoxClick(!isTipBoxClick)}
-        >
-          <span className={styles.highlight}>TIP </span>
-          이름을 변경하시려면 여기를 클릭하세요!
+        <div className={style.topTipBox}>
+          <div
+            className={styles.tipBox}
+            onClick={() => setIsTipBoxClick(!isTipBoxClick)}
+          >
+            <span className={styles.highlight}>TIP </span>
+            이름을 변경하시려면 여기를 클릭하세요!
+          </div>
         </div>
+        {isTipBoxClick && (
+          <div className={style.tipTextBox}>
+            <input
+              className={style.inputTipText}
+              type="text"
+              placeholder="이름을 입력해 주세요."
+            />
+            <button className={style.okButton}>확인</button>
+          </div>
+        )}
       </div>
-      {isTipBoxClick && (
-        <div className={style.tipTextBox}>
-          <input
-            className={style.inputTipText}
-            type="text"
-            placeholder="이름을 입력해 주세요."
-          />
-          <button className={style.okButton}>확인</button>
-        </div>
-      )}
+
       {isSearchBoxClick && (
         <div className={style.searchBox}>
           <div className={style.searchInputBox}>
