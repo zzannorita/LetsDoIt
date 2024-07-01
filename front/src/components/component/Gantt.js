@@ -41,6 +41,7 @@ const Gantt = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearchBoxClick, setIsSearchBoxClick] = useState(false);
   const [isTipBoxClick, setIsTipBoxClick] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("#ccc"); // 검색용 컬러
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -125,6 +126,35 @@ const Gantt = () => {
     console.log(event.id);
   };
 
+  //이벤트 모달 오픈 함수2 검색했을때용
+  const handleEventClick2 = (item, e) => {
+    console.log("오픈2", item, e);
+    //e.stopPropagation();
+    // setSelectedEvent();
+    // setSelectedDate();
+    // setSelectedEndDate();
+    // setEventModalOpen(true);
+    // console.log("이벤트모달");
+  };
+
+  //체크박스 중복 방지
+  const checkOnlyOne = (checkThis) => {
+    const checkBoxes = document.getElementsByName("color");
+    let isChecked = checkThis.checked;
+
+    for (let i = 0; i < checkBoxes.length; i++) {
+      if (checkBoxes[i] !== checkThis) {
+        checkBoxes[i].checked = false;
+      }
+    }
+
+    if (isChecked) {
+      setSelectedColor(checkThis.value);
+    } else {
+      setSelectedColor("#ccc");
+    }
+  };
+
   // 저장 핸들러
   const handleSaveEvent = (eventData) => {
     setEvents((prevEvents) => {
@@ -189,6 +219,39 @@ const Gantt = () => {
   }, [sendData]);
 
   //초디코드복붙
+  // 검색어가 변경될 때마다 필터링
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredResults, setFilteredResults] = useState(receivedData.results);
+  useEffect(() => {
+    const results = receivedData.results.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredResults(results);
+  }, [searchQuery, receivedData.results]);
+
+  useEffect(() => {
+    fetch("/todo/searchSchedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // 시작 날짜(start)가 빠른 순서대로 정렬
+        const sortedResults = data.results.sort((a, b) => {
+          return new Date(a.start) - new Date(b.start);
+        });
+
+        setReceivedData({ ...data, results: sortedResults });
+        console.log("리시브드 데이터", receivedData);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [sendData]);
+
   useEffect(() => {
     if (receivedData && receivedData.results) {
       console.log("리시브 데이터 확인", receivedData.results);
@@ -259,7 +322,12 @@ const Gantt = () => {
                     className={`${style.checkbox_label} ${style.customColor}`}
                     style={{ backgroundColor: color }}
                   >
-                    <input type="checkbox" name="color" value={color} />
+                    <input
+                      type="checkbox"
+                      name="color"
+                      value={color}
+                      onChange={(e) => checkOnlyOne(e.target)}
+                    />
                     <span className={style.checkbox_icon}></span>
                   </label>
                 )
@@ -382,18 +450,45 @@ const Gantt = () => {
               className={style.searchInput}
               type="text"
               placeholder="검색어를 입력하세요."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <div className={style.searchResultBox}>
-            <div className={style.searchResultName}>짱유디생일</div>
-            <div className={style.searchResultDate}>2024-05-18</div>
-          </div>
-          <div className={style.searchResultBox}>
-            <div className={style.searchResultName}>짱유디생일</div>
-            <div className={style.searchResultDate}>2024-05-18</div>
-          </div>
+          {filteredResults.map((item) => {
+            const colorClass = `color-${item.color.replace("#", "")}`;
+            return !selectedColor ? (
+              item.color === "#ccc" ? (
+                <div
+                  className={`${style.searchResultBox} ${style[colorClass]}`}
+                  key={item.title}
+                  onClick={(e) => handleEventClick(item, e)}
+                >
+                  <div className={style.searchResultName}>{item.title}</div>
+                  <div className={style.searchResultDate}>
+                    {item.start.split("T")[0]}~{item.end.split("T")[0]}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )
+            ) : selectedColor === item.color ? (
+              <div
+                className={`${style.searchResultBox} ${style[colorClass]}`}
+                key={item.title}
+                onClick={(e) => handleEventClick2(e)}
+              >
+                <div className={style.searchResultName}>{item.title}</div>
+                <div className={style.searchResultDate}>
+                  {item.start.split("T")[0]}~{item.end.split("T")[0]}
+                </div>
+              </div>
+            ) : (
+              <></>
+            );
+          })}
         </div>
       )}
+      {/* 새 일정 클릭 모달 */}
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
