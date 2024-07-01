@@ -289,7 +289,7 @@ const Board = () => {
         <div className={style.contentBox}>
           <div className={style.doItBox}>
             <div className={style.doItContentBox}>
-              <span>{userCode}</span> 님의 할 일 목록
+              <span>{userCode}</span>님의 할 일 목록
             </div>
           </div>
           <div className={style.mainContentBox}>
@@ -335,10 +335,10 @@ const Board = () => {
                         )}
                       </div>
                       <div className={style.summaryTitle}>
-                        {truncateText(item.title, 9)}
+                        {truncateText(item.title, 7)}
                       </div>
                       <div className={style.summaryContent}>
-                        {truncateText(item.content, 16)}
+                        {truncateText(item.content, 13)}
                       </div>
                       <div className={style.summaryPeriod}>
                         {formatDate(item.start)}~{formatDate(item.end)}
