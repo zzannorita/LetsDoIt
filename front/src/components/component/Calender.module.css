@@ -195,7 +195,7 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 }
 
 .dateText:hover {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 .prevDate {
@@ -274,11 +274,17 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .searchBox {
   position: absolute;
   right: 290px;
-  top: 105px;
+  top: 115px;
   width: 185px;
-  height: 400px;
+  height: 420px;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+}
+
+.searchBox::-webkit-scrollbar {
+  display: none;
+  width: 0px;
 }
 
 .searchInput {
@@ -305,7 +311,6 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 20px;
-  /* background-color: #efe2a1; */
   width: 120px;
   height: 35px;
   padding: 15px;
