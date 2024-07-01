@@ -9,7 +9,7 @@
 .mainBox {
   display: flex;
   flex-direction: column;
-  margin-top: 2%;
+  /* margin-top: 2%; */
   align-items: center;
   width: 60%;
   /* min-width: 952px; */
@@ -21,8 +21,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 15vh;
-  height: 5vh;
+  /* width: 15vh; */
+  width: 14%;
+  /* height: 5vh; */
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 .img {
@@ -37,11 +40,12 @@
 
 .topBox {
   display: flex;
-  width: 100vh;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  height: 5vh;
-  margin: 10px 0;
+  /* height: 5vh; */
+  /* margin: 10px 0; */
+  margin-bottom: 10px;
 }
 
 .nameBox {
@@ -112,13 +116,13 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 65vh;
+  /* height: 65vh; */
   padding: 0;
   align-items: center;
 }
 
 .calendarInnerBox {
-  width: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -168,7 +172,8 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .dateTextBox {
   display: flex;
   flex-direction: column;
-  height: 7vh;
+  /* height: 7vh; */
+  height: 60px;
   text-align: center;
   padding: 2px 0;
   font-size: 12px;
