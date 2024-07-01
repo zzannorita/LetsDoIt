@@ -92,6 +92,7 @@
   width: 140vh;
   justify-content: space-between;
   align-items: center;
+  min-width: 1300px;
 }
 
 .naviInnerBox {
@@ -110,4 +111,23 @@
   display: flex;
   width: 20px;
   height: 20px;
+}
+
+.viewPage {
+  display: flex;
+  /* justify-content: flex-start; */
+  transform: scale(0.5);
+  flex-wrap: wrap;
+  width: 1000px;
+  height: 50px;
+}
+
+.viewPageTop {
+  display: flex;
+  /* justify-content: center; */
+}
+
+.viewPageBtm {
+  display: flex;
+  margin-left: 1000px;
 }
