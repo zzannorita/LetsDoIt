@@ -212,6 +212,14 @@ const Board = () => {
     }
   };
 
+  //maxLength를 넘어가면 뒷부분을 ...으로 처리하는 함수
+  function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  }
+
   //
   const ITEMS_PER_PAGE = 9;
   const [currentPage, setCurrentPage] = useState(1);
@@ -326,8 +334,12 @@ const Board = () => {
                           <img src={nochecked} alt="체크 안된 아이콘" />
                         )}
                       </div>
-                      <div className={style.summaryTitle}>{item.title}</div>
-                      <div className={style.summaryContent}>{item.content}</div>
+                      <div className={style.summaryTitle}>
+                        {truncateText(item.title, 9)}
+                      </div>
+                      <div className={style.summaryContent}>
+                        {truncateText(item.content, 16)}
+                      </div>
                       <div className={style.summaryPeriod}>
                         {formatDate(item.start)}~{formatDate(item.end)}
                       </div>
