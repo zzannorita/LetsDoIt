@@ -1,20 +1,19 @@
 .container {
   display: flex;
   justify-content: center;
+  min-width: 1500px;
 }
 
 .mainBox {
-  /* margin-top: 2%; */
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 90vh;
   width: 60%;
-  /* min-width: 952px;
-  max-width: 952px; */
 }
 .dayBox {
-  width: 100%;
+  /* width: 100%; */
+  min-width: 952px;
   /* height: 100px; */
   /* width: 15vh;
   height: 5vh; */
@@ -37,8 +36,9 @@
 .doItBox {
   display: flex;
   align-items: center;
-  height: 50px;
-  padding-left: 20px;
+  /* height: 50px; */
+  /* padding-left: 20px; */
+  margin-bottom: 10px;
 }
 .doItContentBox {
   font-weight: bold;
@@ -50,21 +50,25 @@
 .mainContentBox {
   display: flex;
   flex-direction: row;
+  width: 100%;
   padding-bottom: 15px;
   border-bottom: 1px solid rgb(173, 173, 173);
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: space-between;
+  min-width: 952px;
 }
 .summaryBox {
   display: flex;
   flex-direction: column;
-  width: 62%;
-  min-width: 707px;
+  width: 64%;
+  /* min-width: 707px; */
   /* justify-content: center; */
   align-items: center;
   position: relative;
 }
 .summaryTitleBox {
   padding: 20px;
+  padding-left: 0px;
   padding-bottom: 10px;
   display: flex;
   flex-direction: row;
@@ -79,6 +83,7 @@
 }
 .summaryContentBox {
   padding: 20px;
+  padding-left: 0px;
   padding-top: 0px;
   width: 90%;
 }
@@ -159,8 +164,8 @@
 .detailBox {
   display: flex;
   flex-direction: column;
-  width: 30%;
-  min-width: 342.53px;
+  width: 34%;
+  /* min-width: 342.53px; */
 }
 .detailSearchIcon {
   width: 25px;
