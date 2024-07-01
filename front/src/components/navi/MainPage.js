@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Board from "../component/Board";
 import Calender from "../component/Calender";
 import Gantt from "../component/Gantt";
 import styles from "./Login.module.css";
-import logo from "../../img/logo.png";
 import view from "../../img/view.png";
+import expansion from "../../img/expansion.png";
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const [viewPage, setViewPage] = useState(false);
+  const [viewImage, setViewImage] = useState(view);
+
+  const toggleView = () => {
+    setViewPage(!viewPage);
+    setViewImage(viewPage ? view : expansion);
+  };
 
   return (
     <div>
@@ -27,18 +34,30 @@ const MainPage = () => {
               <div onClick={() => navigate("/todo")}>할 일</div>
             </div>
             <div className={styles.viewImg}>
-              <img src={view} alt="view"></img>
+              <img src={viewImage} alt="view" onClick={toggleView}></img>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <Routes>
-          <Route path="/calendar" element={<Calender />} />
-          <Route path="/gantt" element={<Gantt />} />
-          <Route path="/todo" element={<Board />} />
-          <Route path="/" element={<Calender />} />
-        </Routes>
+        {viewPage ? (
+          <div className={styles.viewPage}>
+            <div className={styles.viewPageTop}>
+              <Calender />
+              <Gantt />
+            </div>
+            <div className={styles.viewPageBtm}>
+              <Board />
+            </div>
+          </div>
+        ) : (
+          <Routes>
+            <Route path="/calendar" element={<Calender />} />
+            <Route path="/gantt" element={<Gantt />} />
+            <Route path="/todo" element={<Board />} />
+            <Route path="/" element={<Calender />} />
+          </Routes>
+        )}
       </div>
     </div>
   );
