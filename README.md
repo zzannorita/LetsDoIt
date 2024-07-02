@@ -1,6 +1,6 @@
 해보자GO 
 =========
-#일상 속 작은 변화로 큰 편의를. 심플하고 효율적인 일정 관리 서비스
+# 일상 속 작은 변화로 큰 편의를. 심플하고 효율적인 일정 관리 서비스
 ![image](https://github.com/zzannorita/LetsDoIt/assets/135790442/988f2639-1cad-4125-818b-6545402c3052)
 
 
@@ -15,6 +15,9 @@
 | 신규철(FE , BE)     |  장유리(FE)         |
 | :-----------------: | :-----------------: |
 | <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/ddb59533-4cba-43c1-9b0c-cf5e1c94137d" alt="KakaoTalk_20240502_172636004" width="200" height="200" /><br> |   <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/3d940561-3601-4e21-9f78-41351132dc0e" alt="KakaoTalk_20240102_200636725" width="200" height="200" /><br> |
+
+<br>
+
 
 ## 기술 스택
 
