@@ -66,13 +66,6 @@
   gap: 10px;
 }
 
-.searchImg {
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
 /* 체크박스 커스텀 */
 input[type="checkbox"] {
   display: none;
@@ -226,8 +219,7 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .tipTextBox {
   position: absolute;
   top: 10px;
-  right: 330px;
-  width: 6.5%;
+  right: -170px;
   height: 8%;
   display: flex;
   flex-direction: column;
@@ -271,10 +263,17 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 }
 
 /* 검색창 */
+.searchImg {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
 .searchBox {
   position: absolute;
-  right: 290px;
-  top: 115px;
+  right: -200px;
+  top: 96px;
   width: 185px;
   height: 420px;
   display: flex;
