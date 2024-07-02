@@ -52,6 +52,16 @@ const Login = ({ onLogin }) => {
         if (data.code === "USERDATA_MATCH") {
           console.log("로그인 성공", receivedData);
           onLogin(userCode);
+        } else if (data.code === "PROCEED_WITH_NEW_SIGN-UP") {
+          setErrorMessage("회원가입이 완료되었습니다. 로그인을 해주세요.");
+          setShowPasswordInput(false);
+          setPassword("");
+        } else {
+          setErrorMessage(
+            "비밀번호가 일치하지 않거나 이미 존재하는 코드입니다. 다시 입력해주세요."
+          );
+          setShowPasswordInput(false);
+          setPassword("");
         }
       })
       .catch((error) => {
@@ -111,7 +121,7 @@ const Login = ({ onLogin }) => {
                   <div className={styles.tipBox}>
                     <span className={styles.highlight}>TIP</span>
                     {errorMessage
-                      ? " 비밀번호가 일치하지 않거나 이미 존재하는 코드입니다. 다시 입력해주세요."
+                      ? errorMessage
                       : " 처음이신가요? 새로운 코드(10자리 이내)를 입력해 주세요."}
                   </div>
                 </>
