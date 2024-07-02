@@ -15,8 +15,7 @@
 
 | JavaScript     |  React         |  Node          |
 | :------------: | :------------: | :------------: |
-| <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/91db319d-26ad-4953-8391-dfb615bb2a93" alt="js" width="200" height="200" /> | <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/a0adeada-b150-4a52-8d26-8f4d007ba498" alt="react" width="200" height="200" />
-| <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/ba7fe91e-87c8-4d79-93b6-2dd023c86efa" alt="node" width="200" height="200" />
+| <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/91db319d-26ad-4953-8391-dfb615bb2a93" alt="js" width="200" height="200" /> | <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/a0adeada-b150-4a52-8d26-8f4d007ba498" alt="react" width="200" height="200" /> | <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/ba7fe91e-87c8-4d79-93b6-2dd023c86efa" alt="node" width="200" height="200" />
 
 
 <br>
