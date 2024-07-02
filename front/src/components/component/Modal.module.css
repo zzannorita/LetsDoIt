@@ -18,7 +18,7 @@
 }
 
 .modalBox {
-  width: 35vh;
+  width: 325px;
   height: 45vh;
   padding: 10px;
   display: flex;
@@ -29,6 +29,7 @@
 .modalNameBox {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .modalName {
@@ -41,7 +42,7 @@
 }
 
 .modalName:focus::placeholder {
-  color: #222222;
+  color: #333;
   opacity: 0;
 }
 
@@ -53,18 +54,21 @@
   width: 100%;
   align-items: center;
 }
-.datepicker{
+
+.datepicker {
   width: 85%;
   border: none;
-  
+  font-family: "NanumSquareR";
+  margin-bottom: 3px;
 }
 
 .periodName {
   font-weight: bold;
   margin-left: 2px;
   color: #333333;
+  text-align: center;
 }
-.periodNum{
+.periodNum {
   width: 47%;
 }
 .modalTextBox {
@@ -102,8 +106,13 @@
   background-color: white;
   font-weight: bold;
   color: #555;
+  cursor: pointer;
 }
 
-.closeButton{
+.okButton:hover {
+  color: #ed7d31;
+}
+
+.closeButton {
   cursor: pointer;
 }
