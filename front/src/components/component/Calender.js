@@ -22,9 +22,7 @@ const MONTH_LIST = [
   "12",
 ];
 
-const Calender = () => {
-  const userCode = "5811";
-
+const Calender = ({ userCode, username }) => {
   const [newDate, setNewDate] = useState(new Date()); //현재 날짜 상태 저장
   const [today, setToday] = useState(new Date());
   const [year, setYear] = useState(0); //현재 연도 상태 저장
@@ -289,7 +287,7 @@ const Calender = () => {
         </div>
         <div className={style.topBox}>
           <div className={style.nameBox}>
-            <span className={styles.highlight}>{userCode}</span>님의 캘린더
+            <span className={styles.highlight}>{username}</span>님의 캘린더
           </div>
           {/* 체크박스 */}
           <div className={style.selectBox}>

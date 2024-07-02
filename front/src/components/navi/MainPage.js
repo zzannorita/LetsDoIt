@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Board from "../component/Board";
 import Calender from "../component/Calender";
@@ -7,15 +7,45 @@ import styles from "./Login.module.css";
 import view from "../../img/view.png";
 import expansion from "../../img/expansion.png";
 
-const MainPage = () => {
+const MainPage = ({ userCode, onLogout }) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
   const [viewPage, setViewPage] = useState(false);
   const [viewImage, setViewImage] = useState(view);
+  const [activeTab, setActiveTab] = useState("calender");
 
   const toggleView = () => {
     setViewPage(!viewPage);
     setViewImage(viewPage ? view : expansion);
   };
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  useEffect(() => {
+    if (userCode === "" || userCode === null || userCode === undefined) {
+      navigate("/");
+    }
+  }, [userCode, navigate]);
+
+  useEffect(() => {
+    fetch("/user/searcUserName", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userCode: userCode }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("받아온거", data.results[0].name);
+        setUsername(data.results[0].name);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [userCode]);
 
   return (
     <div>
@@ -29,13 +59,14 @@ const MainPage = () => {
         <div className={styles.headerBox}>
           <div className={styles.naviBox}>
             <div className={styles.naviInnerBox}>
-              <div onClick={() => navigate("/calendar")}>캘린더</div>
-              <div onClick={() => navigate("/gantt")}>간트차트</div>
-              <div onClick={() => navigate("/todo")}>할 일</div>
+              <div onClick={() => handleTabClick("calender")}>캘린더</div>
+              <div onClick={() => handleTabClick("gantt")}>간트차트</div>
+              <div onClick={() => handleTabClick("todo")}>할 일</div>
             </div>
             <div className={styles.viewImg}>
               <img src={viewImage} alt="view" onClick={toggleView}></img>
             </div>
+            <button onClick={onLogout}>Logout</button>
           </div>
         </div>
       </div>
@@ -43,20 +74,25 @@ const MainPage = () => {
         {viewPage ? (
           <div className={styles.viewPage}>
             <div className={styles.viewPageTop}>
-              <Calender />
-              <Gantt />
+              <Calender userCode={userCode} username={username} />
+              <Gantt userCode={userCode} username={username} />
             </div>
             <div className={styles.viewPageBtm}>
-              <Board />
+              <Board userCode={userCode} username={username} />
             </div>
           </div>
         ) : (
-          <Routes>
-            <Route path="/calendar" element={<Calender />} />
-            <Route path="/gantt" element={<Gantt />} />
-            <Route path="/todo" element={<Board />} />
-            <Route path="/" element={<Calender />} />
-          </Routes>
+          <>
+            {activeTab === "calender" && (
+              <Calender userCode={userCode} username={username}></Calender>
+            )}
+            {activeTab === "gantt" && (
+              <Gantt userCode={userCode} username={username}></Gantt>
+            )}
+            {activeTab === "todo" && (
+              <Board userCode={userCode} username={username}></Board>
+            )}
+          </>
         )}
       </div>
     </div>

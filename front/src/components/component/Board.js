@@ -11,8 +11,8 @@ import nochecked from "../../img/nochecked.png";
 import trash from "../../img/trash.png";
 import checked from "../../img/checked.png";
 
-const Board = () => {
-  const [userCode, setUserCode] = useState("5811");
+const Board = ({ userCode, username }) => {
+  // const [userCode, setUserCode] = useState("5811");
   const [sendData, setSendData] = useState({ userCode: userCode });
   const [receivedData, setReceivedData] = useState();
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -289,7 +289,7 @@ const Board = () => {
         <div className={style.contentBox}>
           <div className={style.doItBox}>
             <div className={style.doItContentBox}>
-              <span>{userCode}</span>님의 할 일 목록
+              <span>{username}</span>님의 할 일 목록
             </div>
           </div>
           <div className={style.mainContentBox}>
@@ -346,7 +346,7 @@ const Board = () => {
                     </div>
                   ))
                 ) : (
-                  <div>일정이 존재하지 않습니다.</div>
+                  <div></div>
                 )}
               </div>
               <div className={style.summaryPagenationBox}>

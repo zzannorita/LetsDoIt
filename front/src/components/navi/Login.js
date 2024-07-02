@@ -3,7 +3,7 @@ import logo from "../../img/logo.png";
 import calendar from "../../img/calendar.png";
 import styles from "./Login.module.css";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [userCode, setUserCode] = useState("");
   const [password, setPassword] = useState("");
   const [showPasswordInput, setShowPasswordInput] = useState(false);
@@ -23,10 +23,18 @@ const Login = () => {
     }
   };
 
-  const handlePasswordEnter = (event) => {
+  const handlePasswordEnter = async (event) => {
     if (event.key === "Enter") {
       console.log("실행됨..");
-      handleSubmit();
+      try {
+        await handleSubmit(); // Await here is valid within an async function
+        if (receivedData === "USERDATA_MATCH") {
+          console.log("로그인 성공", receivedData);
+          onLogin(userCode);
+        }
+      } catch (error) {
+        console.error("Error occurred during handleSubmit:", error);
+      }
     }
   };
 
@@ -46,6 +54,7 @@ const Login = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.code);
+        console.log(data);
         setReceivedData(data.code);
       })
       .catch((error) => {

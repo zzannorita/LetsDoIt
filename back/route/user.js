@@ -98,4 +98,28 @@ router.post("/updateUser", (req, res) => {
   }
 });
 
+//유저 닉네임 검색 라우트
+router.post("/searcUserName", (req, res) => {
+  const usercode = req.body.userCode;
+  console.log("나 들어왔쓔");
+  console.log("받아온 usercode : ", usercode);
+  const sendData = { isSuccess: "" };
+
+  if (usercode) {
+    connection.query(
+      // 쿼리문을 연결된 DB로 전송하는것임...!
+      "SELECT name FROM user WHERE usercode = ?", //db user테이블 내에 user코드 입력받은것이 존재 한다면 다 검색해줘.
+      [usercode],
+      function (error, results, fields) {
+        if (error) throw error;
+        sendData.results = results;
+        res.send(sendData);
+      }
+    );
+  } else {
+    sendData.isSuccess = "존재하지 않음.";
+    res.send(sendData);
+  }
+});
+
 module.exports = router;

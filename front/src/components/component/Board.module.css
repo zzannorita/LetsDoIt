@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90vh;
   width: 60%;
   max-width: 952px;
 }
