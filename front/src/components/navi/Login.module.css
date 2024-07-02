@@ -117,17 +117,12 @@
 
 .viewPage {
   display: flex;
-  transform: scale(0.5);
+  transform: scale(0.6);
   flex-wrap: wrap;
-  width: 800px;
-  height: 50px;
+  width: 100px;
+  height: 600px;
 }
 
 .viewPageTop {
   display: flex;
-}
-
-.viewPageBtm {
-  display: flex;
-  margin-left: 700px;
 }

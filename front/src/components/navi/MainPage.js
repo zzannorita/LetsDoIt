@@ -52,9 +52,6 @@ const MainPage = () => {
               <Calender />
               <Gantt />
             </div>
-            <div className={styles.viewPageBtm}>
-              <Board />
-            </div>
           </div>
         ) : (
           <Routes>
