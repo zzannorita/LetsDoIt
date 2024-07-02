@@ -12,7 +12,9 @@ const MainPage = ({ userCode, onLogout }) => {
   const [username, setUsername] = useState("");
   const [viewPage, setViewPage] = useState(false);
   const [viewImage, setViewImage] = useState(view);
-  const [activeTab, setActiveTab] = useState("calender");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("activeTab") || "calender"
+  );
 
   const toggleView = () => {
     setViewPage(!viewPage);
@@ -21,6 +23,7 @@ const MainPage = ({ userCode, onLogout }) => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    localStorage.setItem("activeTab", tab);
   };
 
   useEffect(() => {
