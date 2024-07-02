@@ -12,17 +12,21 @@ import {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userCode, setUserCode] = useState(null);
+  const [userCode, setUserCode] = useState(
+    localStorage.getItem("userCode") || null
+  );
   //const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleLogin = (userCode) => {
     setIsLoggedIn(true);
     setUserCode(userCode);
+    localStorage.setItem("userCode", userCode); // 사용자 코드 저장
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserCode(null);
+    localStorage.removeItem("userCode");
     //navigate("/");
     console.log("이즈로그드인", isLoggedIn);
   };

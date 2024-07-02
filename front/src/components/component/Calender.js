@@ -42,6 +42,7 @@ const Calender = ({ userCode, username }) => {
   const [receivedData, setReceivedData] = useState({ results: [] });
   const [sendData, setSendData] = useState({ userCode: userCode });
   const [selectedColor, setSelectedColor] = useState("#ccc"); // 검색용 컬러
+  const [newName, setNewName] = useState("");
 
   //newDate가 변경될 때마다
   useEffect(() => {
@@ -194,6 +195,29 @@ const Calender = ({ userCode, username }) => {
     });
 
     console.log(events);
+  };
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value); // 입력 필드의 값으로 newName 상태를 업데이트합니다.
+    console.log(newName);
+  };
+
+  //handleChangeName 이름 변경 함수
+  const handleChangeName = () => {
+    fetch("/user/updateUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newName: newName, usercode: userCode }),
+    })
+      .then((response) => {
+        response.json();
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   // 검색어가 변경될 때마다 필터링
@@ -423,8 +447,12 @@ const Calender = ({ userCode, username }) => {
               className={style.inputTipText}
               type="text"
               placeholder="이름을 입력해 주세요."
+              value={newName}
+              onChange={handleNameChange}
             />
-            <button className={style.okButton}>확인</button>
+            <button className={style.okButton} onClick={handleChangeName}>
+              확인
+            </button>
           </div>
         )}
         {isSearchBoxClick && (

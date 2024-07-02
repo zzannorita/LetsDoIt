@@ -79,6 +79,7 @@ router.post("/createUser", (req, res) => {
 //유저 이름 변경 라우트
 router.post("/updateUser", (req, res) => {
   const newName = req.body.newName;
+  const usercode = req.body.usercode;
   console.log("받아온 newName : ", newName);
   const sendData = { isSuccess: "" };
 
@@ -90,6 +91,8 @@ router.post("/updateUser", (req, res) => {
       function (error, results, fields) {
         if (error) throw error;
         //업데이트의 경우 results는 반환된 행의 개수를 가지고있다고 함.
+        sendData.code = "update";
+        res.send(sendData);
       }
     );
   } else {
