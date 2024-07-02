@@ -8,6 +8,7 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [showPasswordInput, setShowPasswordInput] = useState(false);
   const [receivedData, setReceivedData] = useState(); //input태그 상황별 값
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUserCodeChange = (event) => {
     setUserCode(event.target.value);
@@ -108,20 +109,17 @@ const Login = ({ onLogin }) => {
                     placeholder="코드를 입력하세요."
                   />
                   <div className={styles.tipBox}>
-                    <span className={styles.highlight}>TIP</span> 처음이신가요?
-                    새로운 코드(10자리 이내)를 입력해 주세요.
+                    <span className={styles.highlight}>TIP</span>
+                    {errorMessage
+                      ? " 비밀번호가 일치하지 않거나 이미 존재하는 코드입니다. 다시 입력해주세요."
+                      : " 처음이신가요? 새로운 코드(10자리 이내)를 입력해 주세요."}
                   </div>
                 </>
               )}
             </div>
           </div>
-          <div className={styles.rightBox}>
-            <img
-              src={calendar}
-              alt="calendar"
-              width="350px"
-              height="350px"
-            ></img>
+          <div>
+            <img src={calendar} alt="calendar" className={styles.imgBox}></img>
           </div>
         </div>
       </div>
