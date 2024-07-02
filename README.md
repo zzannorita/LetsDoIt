@@ -33,7 +33,48 @@
 <br>
 
 ## 주요 화면
-
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/e10e2f0c-bc79-4e3f-8aab-b7f3cea678d5" alt="로그인페이지" width="200" height="200" /><br>
+      <strong>로그인페이지</strong>
+    </td>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/ef2495d4-0e97-4ebc-b21a-a6e6d9b1a3df" alt="캘린더" width="200" height="200" /><br>
+      <strong>캘린더</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/0e593fcb-2851-40e6-b04a-b94e582f04a7" alt="모달창" width="200" height="200" /><br>
+      <strong>모달창</strong>
+    </td>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/acfc1d84-9ece-46c3-b47f-1fad04fbd920" alt="검색창" width="200" height="200" /><br>
+      <strong>검색창</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/445ee581-deaf-4026-93d5-5ad13eb96c1e" alt="간트차트" width="200" height="200" /><br>
+      <strong>간트차트</strong>
+    </td>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/617ba388-5d2e-46cc-9347-338e633cb73f" alt="투두" width="200" height="200" /><br>
+      <strong>투두</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/31ed1bb8-daa6-4dca-a535-3c82a1bb68ad" alt="투두수정" width="200" height="200" /><br>
+      <strong>투두수정</strong>
+    </td>
+    <td align="center">
+      <img src="https://github.com/zzannorita/LetsDoIt/assets/135790442/0a8e92bf-11cd-48b8-8ccb-8a1328b06a18" alt="뷰" width="200" height="200" /><br>
+      <strong>뷰</strong>
+    </td>
+  </tr>
+</table>
 
 
 <!-- Stack Icon Refernces -->
