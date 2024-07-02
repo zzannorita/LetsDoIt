@@ -265,6 +265,14 @@ const Calender = () => {
     }
   }, [receivedData]);
 
+  //maxLength를 넘어가면 뒷부분을 ...으로 처리하는 함수
+  function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  }
+
   return (
     <div className={style.container}>
       <div className={style.mainBox}>
@@ -380,7 +388,8 @@ const Calender = () => {
                           onClick={(e) => handleEventClick(event, e)}
                           // 새로운 함수 생성 방지, e
                         >
-                          {event.modalName}
+                          {truncateText(event.modalName, 7)}
+                          {/* {event.modalName} */}
                         </div>
                       ))}
                     </div>
