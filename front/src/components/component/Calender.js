@@ -488,6 +488,7 @@ const Calender = ({ userCode, username }) => {
         selectedDate={selectedDate}
         selectedEndDate={selectedEndDate}
         onSave={handleSaveEvent}
+        userCode={userCode}
       />
       {/* 기존 일정 클릭 모달 */}
       {selectedEvent && (
@@ -498,6 +499,7 @@ const Calender = ({ userCode, username }) => {
           selectedEndDate={selectedEndDate}
           selectedEvent={selectedEvent}
           onSave={handleSaveEvent}
+          userCode={userCode}
           // event={selectedEvent}
         />
       )}

@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { forwardRef } from "react";
 import { getMonth, getDate } from "date-fns";
 //이미지 import
-import search from "../../img/search.png";
 import nochecked from "../../img/nochecked.png";
 import trash from "../../img/trash.png";
 import checked from "../../img/checked.png";
@@ -364,9 +363,6 @@ const Board = ({ userCode, username }) => {
               </div>
             </div>
             <div className={style.detailBox}>
-              <div className={style.detailSearchBox}>
-                <img src={search} className={style.detailSearchIcon} />
-              </div>
               <div className={style.detailContentBox}>
                 {!toggleAdd ? (
                   !selectedTodo ? (
