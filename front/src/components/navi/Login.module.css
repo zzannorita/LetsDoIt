@@ -47,6 +47,10 @@
   font-weight: bold;
 }
 
+.imgBox {
+  width: 350px;
+  height: 350px;
+}
 .textBox div:first-child {
   font-size: 60px;
 }
@@ -125,4 +129,25 @@
 
 .viewPageTop {
   display: flex;
+}
+
+.rightBox {
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout {
+  border: none;
+  background: white;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: NanumSquareR;
+  color: #333;
+}
+
+.logout:hover {
+  color: #ed7d31;
+  cursor: pointer;
 }
