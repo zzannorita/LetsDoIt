@@ -17,6 +17,12 @@ const MainPage = () => {
     setViewImage(viewPage ? view : expansion);
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+    setViewPage(false);
+    setViewImage(view);
+  };
+
   return (
     <div>
       <div className={styles.header}>
@@ -29,9 +35,9 @@ const MainPage = () => {
         <div className={styles.headerBox}>
           <div className={styles.naviBox}>
             <div className={styles.naviInnerBox}>
-              <div onClick={() => navigate("/calendar")}>캘린더</div>
-              <div onClick={() => navigate("/gantt")}>간트차트</div>
-              <div onClick={() => navigate("/todo")}>할 일</div>
+              <div onClick={() => handleNavigation("/calendar")}>캘린더</div>
+              <div onClick={() => handleNavigation("/gantt")}>간트차트</div>
+              <div onClick={() => handleNavigation("/todo")}>할 일</div>
             </div>
             <div className={styles.viewImg}>
               <img src={viewImage} alt="view" onClick={toggleView}></img>
