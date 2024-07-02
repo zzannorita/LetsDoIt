@@ -15,7 +15,10 @@
 
 | JavaScript                        |  React                   |  Node                   |
 | :-------------------------------: | :----------------------: | :---------------------: |
-|   !/images/stack/javascript.svg   | !/images/stack/react.svg | !/images/stack/node.svg |
+| ![js](https://github.com/zzannorita/LetsDoIt/assets/135790442/91401191-c9ea-46ec-bab2-5938a6ab14a8)
+t.svg   | ![react](https://github.com/zzannorita/LetsDoIt/assets/135790442/3c763ab4-bc04-477f-ac61-64f1c18fb495)
+ | ![node](https://github.com/zzannorita/LetsDoIt/assets/135790442/024a9199-48da-4583-bf43-e9fcd11674ab)
+
 
 <br>
 
