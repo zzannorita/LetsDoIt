@@ -12,6 +12,7 @@ const Modal = ({
   selectedEndDate,
   onSave,
   selectedEvent,
+  userCode,
 }) => {
   const [modalName, setModalName] = useState("");
   const [modalText, setModalText] = useState("");
@@ -27,8 +28,6 @@ const Modal = ({
     setEndDate(end);
   };
   //
-
-  const userCode = "5811";
 
   useEffect(() => {
     if (isOpen) {
