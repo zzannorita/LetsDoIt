@@ -7,7 +7,7 @@
 
 .header {
   display: flex;
-  height: 114px;
+  height: 100px;
   align-items: center;
   border-bottom: 1px solid #e2e2e2;
 }
@@ -15,12 +15,12 @@
 .logoBox {
   display: flex;
   justify-content: center;
-  width: 20%;
+  width: 17%;
   min-width: 300px;
 }
 
 .logo {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 999;
 }
 
@@ -105,29 +105,24 @@
 
 .naviInnerBox div:hover {
   color: #ed7d31;
+  cursor: pointer;
 }
 
 .viewImg {
   display: flex;
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .viewPage {
   display: flex;
-  /* justify-content: flex-start; */
-  transform: scale(0.5);
+  transform: scale(0.6);
   flex-wrap: wrap;
-  width: 1000px;
-  height: 50px;
+  width: 100px;
+  height: 600px;
 }
 
 .viewPageTop {
   display: flex;
-  /* justify-content: center; */
-}
-
-.viewPageBtm {
-  display: flex;
-  margin-left: 1000px;
 }

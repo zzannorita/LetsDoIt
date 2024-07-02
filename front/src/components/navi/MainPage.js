@@ -77,9 +77,6 @@ const MainPage = ({ userCode, onLogout }) => {
               <Calender userCode={userCode} username={username} />
               <Gantt userCode={userCode} username={username} />
             </div>
-            <div className={styles.viewPageBtm}>
-              <Board userCode={userCode} username={username} />
-            </div>
           </div>
         ) : (
           <>

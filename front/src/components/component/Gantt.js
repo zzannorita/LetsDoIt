@@ -440,27 +440,39 @@ const Gantt = ({ userCode, username }) => {
             <button className={style.okButton}>확인</button>
           </div>
         )}
-      </div>
-
-      {isSearchBoxClick && (
-        <div className={style.searchBox}>
-          <div className={style.searchInputBox}>
-            <input
-              className={style.searchInput}
-              type="text"
-              placeholder="검색어를 입력하세요."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          {filteredResults.map((item) => {
-            const colorClass = `color-${item.color.replace("#", "")}`;
-            return !selectedColor ? (
-              item.color === "#ccc" ? (
+        {isSearchBoxClick && (
+          <div className={style.searchBox}>
+            <div className={style.searchInputBox}>
+              <input
+                className={style.searchInput}
+                type="text"
+                placeholder="검색어를 입력하세요."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            {filteredResults.map((item) => {
+              const colorClass = `color-${item.color.replace("#", "")}`;
+              return !selectedColor ? (
+                item.color === "#ccc" ? (
+                  <div
+                    className={`${style.searchResultBox} ${style[colorClass]}`}
+                    key={item.title}
+                    onClick={(e) => handleEventClick(item, e)}
+                  >
+                    <div className={style.searchResultName}>{item.title}</div>
+                    <div className={style.searchResultDate}>
+                      {item.start.split("T")[0]}~{item.end.split("T")[0]}
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )
+              ) : selectedColor === item.color ? (
                 <div
                   className={`${style.searchResultBox} ${style[colorClass]}`}
                   key={item.title}
-                  onClick={(e) => handleEventClick(item, e)}
+                  onClick={(e) => handleEventClick2(e)}
                 >
                   <div className={style.searchResultName}>{item.title}</div>
                   <div className={style.searchResultDate}>
@@ -469,24 +481,12 @@ const Gantt = ({ userCode, username }) => {
                 </div>
               ) : (
                 <></>
-              )
-            ) : selectedColor === item.color ? (
-              <div
-                className={`${style.searchResultBox} ${style[colorClass]}`}
-                key={item.title}
-                onClick={(e) => handleEventClick2(e)}
-              >
-                <div className={style.searchResultName}>{item.title}</div>
-                <div className={style.searchResultDate}>
-                  {item.start.split("T")[0]}~{item.end.split("T")[0]}
-                </div>
-              </div>
-            ) : (
-              <></>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </div>
+
       {/* 새 일정 클릭 모달 */}
       <Modal
         isOpen={modalOpen}

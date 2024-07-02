@@ -9,10 +9,8 @@
 .mainBox {
   display: flex;
   flex-direction: column;
-  /* margin-top: 2%; */
   align-items: center;
   width: 60%;
-  /* min-width: 952px; */
   max-width: 952px;
   height: 800px;
   position: relative;
@@ -22,9 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* width: 15vh; */
   width: 14%;
-  /* height: 5vh; */
   margin-top: 40px;
   margin-bottom: 30px;
 }
@@ -32,6 +28,7 @@
 .img {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .month {
@@ -66,13 +63,6 @@
   gap: 10px;
 }
 
-.searchImg {
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
 /* 체크박스 커스텀 */
 input[type="checkbox"] {
   display: none;
@@ -82,6 +72,7 @@ input[type="checkbox"] {
   display: flex;
   width: 18px;
   height: 18px;
+  cursor: pointer;
 }
 
 .red .checkbox_icon {
@@ -195,7 +186,7 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 }
 
 .dateText:hover {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .prevDate {
@@ -226,8 +217,7 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .tipTextBox {
   position: absolute;
   top: 10px;
-  right: 330px;
-  width: 6.5%;
+  right: -170px;
   height: 8%;
   display: flex;
   flex-direction: column;
@@ -264,6 +254,7 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   background-color: white;
   font-weight: bold;
   font-family: NanumSquareR;
+  cursor: pointer;
 }
 
 .okButton:hover {
@@ -271,10 +262,17 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 }
 
 /* 검색창 */
+.searchImg {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
 .searchBox {
   position: absolute;
-  right: 290px;
-  top: 115px;
+  right: -200px;
+  top: 96px;
   width: 185px;
   height: 420px;
   display: flex;

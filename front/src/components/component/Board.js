@@ -466,6 +466,7 @@ const Board = ({ userCode, username }) => {
                             <img
                               src={trash}
                               alt="삭제 아이콘"
+                              className={style.trash}
                               onClick={handleTodoDelete}
                             />
                           </div>
