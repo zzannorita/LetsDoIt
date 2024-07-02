@@ -504,6 +504,7 @@ const Gantt = ({ userCode, username }) => {
         selectedDate={selectedDate}
         selectedEndDate={selectedEndDate}
         onSave={handleSaveEvent}
+        userCode={userCode}
       />
       {selectedEvent && (
         <Modal
@@ -513,6 +514,7 @@ const Gantt = ({ userCode, username }) => {
           selectedEvent={selectedEvent}
           selectedEndDate={selectedEndDate}
           onSave={handleSaveEvent}
+          userCode={userCode}
           // event={selectedEvent}
         />
       )}
