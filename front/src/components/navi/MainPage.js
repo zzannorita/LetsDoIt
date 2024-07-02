@@ -39,7 +39,6 @@ const MainPage = ({ userCode, onLogout }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("받아온거", data.results[0].name);
         setUsername(data.results[0].name);
       })
       .catch((error) => {

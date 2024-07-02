@@ -13,9 +13,8 @@ import {
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userCode, setUserCode] = useState(
-    localStorage.getItem("userCode") || null
+    localStorage.getItem("userCode") || null //로컬 스토리지 사용 및 저장
   );
-  //const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleLogin = (userCode) => {
     setIsLoggedIn(true);
@@ -27,8 +26,6 @@ function App() {
     setIsLoggedIn(false);
     setUserCode(null);
     localStorage.removeItem("userCode");
-    //navigate("/");
-    console.log("이즈로그드인", isLoggedIn);
   };
   return (
     <div className="App">

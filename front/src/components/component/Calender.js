@@ -57,7 +57,6 @@ const Calender = ({ userCode, username }) => {
     setLastDate(new Date(yy, mm + 1, 0).getDate()); //현재 월의 마지막 일 계산
     setLastDatePrev(new Date(yy, mm, 0).getDate()); //이전 월의 마지막 일 계산
     setFirstDay(new Date(yy, mm, 1).getDay()); //현재 월의 첫 번쨰 날의 요일 계산
-    // setDisplayDate(`${yy}년 ${mm + 1}월 ${dd}일`); //디스플레이 날짜
   }, [newDate]);
 
   //오늘 날짜

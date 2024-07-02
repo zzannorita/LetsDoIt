@@ -23,7 +23,6 @@ const Modal = ({
   const [endDate, setEndDate] = useState(new Date());
   const handleDateChange = (dates) => {
     const [start, end] = dates;
-    console.log(start, end);
     setStartDate(start);
     setEndDate(end);
   };

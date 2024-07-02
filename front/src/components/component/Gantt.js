@@ -123,15 +123,7 @@ const Gantt = ({ userCode, username }) => {
   };
 
   //이벤트 모달 오픈 함수2 검색했을때용
-  const handleEventClick2 = (item, e) => {
-    console.log("오픈2", item, e);
-    //e.stopPropagation();
-    // setSelectedEvent();
-    // setSelectedDate();
-    // setSelectedEndDate();
-    // setEventModalOpen(true);
-    // console.log("이벤트모달");
-  };
+  const handleEventClick2 = (item, e) => {};
 
   //체크박스 중복 방지
   const checkOnlyOne = (checkThis) => {
@@ -175,7 +167,6 @@ const Gantt = ({ userCode, username }) => {
 
   const handleNameChange = (event) => {
     setNewName(event.target.value); // 입력 필드의 값으로 newName 상태를 업데이트합니다.
-    console.log(newName);
   };
 
   //handleChangeName 이름 변경 함수
@@ -230,7 +221,6 @@ const Gantt = ({ userCode, username }) => {
         });
 
         setReceivedData({ ...data, results: sortedResults });
-        // console.log("리시브드 데이터(간트)", receivedData);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -264,7 +254,6 @@ const Gantt = ({ userCode, username }) => {
         });
 
         setReceivedData({ ...data, results: sortedResults });
-        console.log("리시브드 데이터", receivedData);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -273,7 +262,6 @@ const Gantt = ({ userCode, username }) => {
 
   useEffect(() => {
     if (receivedData && receivedData.results) {
-      console.log("리시브 데이터 확인", receivedData.results);
       const updatedEvents = { ...events };
       receivedData.results.forEach((result) => {
         const eventData = {
@@ -284,7 +272,6 @@ const Gantt = ({ userCode, username }) => {
           selectedColor: result.color,
           modalText: result.content,
         };
-        console.log(eventData.selectedDate);
         // 이미 해당 날짜에 이벤트가 있는지 확인 후 추가
         if (!updatedEvents[result.start.substring(0, 10)]) {
           updatedEvents[result.start.substring(0, 10)] = [eventData];
@@ -300,8 +287,6 @@ const Gantt = ({ userCode, username }) => {
       });
 
       setEvents(updatedEvents);
-
-      console.log(events);
     }
   }, [receivedData]);
 

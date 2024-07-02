@@ -33,7 +33,6 @@
 
 .curDate {
   width: 13%;
-  /* text-align: right; */
   padding: 10px 0;
   text-align: center;
   font-weight: bold;
@@ -79,14 +78,12 @@
 
 .ganttListBox > div {
   width: 100%;
-  /* border-bottom: 1px solid #ccc; */
 }
 
 .dateText {
   height: 30px;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   font-weight: bold;
   font-size: 14px;
   color: #333;

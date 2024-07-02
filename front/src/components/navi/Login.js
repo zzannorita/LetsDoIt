@@ -26,7 +26,6 @@ const Login = ({ onLogin }) => {
 
   const handlePasswordEnter = (event) => {
     if (event.key === "Enter") {
-      console.log("실행됨..");
       handleSubmit();
     }
   };
@@ -46,11 +45,7 @@ const Login = ({ onLogin }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.code);
-        console.log(data);
-        // setReceivedData(data.code);
         if (data.code === "USERDATA_MATCH") {
-          console.log("로그인 성공", receivedData);
           onLogin(userCode);
         } else if (data.code === "PROCEED_WITH_NEW_SIGN-UP") {
           setErrorMessage("회원가입이 완료되었습니다. 로그인을 해주세요.");
