@@ -63,10 +63,14 @@ const MainPage = ({ userCode, onLogout }) => {
               <div onClick={() => handleTabClick("gantt")}>간트차트</div>
               <div onClick={() => handleTabClick("todo")}>할 일</div>
             </div>
-            <div className={styles.viewImg}>
-              <img src={viewImage} alt="view" onClick={toggleView}></img>
+            <div className={styles.rightBox}>
+              <button className={styles.logout} onClick={onLogout}>
+                로그아웃
+              </button>
+              <div className={styles.viewImg}>
+                <img src={viewImage} alt="view" onClick={toggleView}></img>
+              </div>
             </div>
-            <button onClick={onLogout}>Logout</button>
           </div>
         </div>
       </div>
