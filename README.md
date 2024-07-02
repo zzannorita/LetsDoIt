@@ -87,4 +87,5 @@
 <br>
 
 ## 시연 영상
+<img src="https://github.com/zzannorita/LetsDoIt/assets/87301355/4c55f71f-1256-42e8-a9c2-601a630850fe" alt="시연영상"/>
 
