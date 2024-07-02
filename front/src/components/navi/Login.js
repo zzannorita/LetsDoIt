@@ -23,18 +23,10 @@ const Login = ({ onLogin }) => {
     }
   };
 
-  const handlePasswordEnter = async (event) => {
+  const handlePasswordEnter = (event) => {
     if (event.key === "Enter") {
       console.log("실행됨..");
-      try {
-        await handleSubmit(); // Await here is valid within an async function
-        if (receivedData === "USERDATA_MATCH") {
-          console.log("로그인 성공", receivedData);
-          onLogin(userCode);
-        }
-      } catch (error) {
-        console.error("Error occurred during handleSubmit:", error);
-      }
+      handleSubmit();
     }
   };
 
@@ -55,7 +47,11 @@ const Login = ({ onLogin }) => {
       .then((data) => {
         console.log(data.code);
         console.log(data);
-        setReceivedData(data.code);
+        // setReceivedData(data.code);
+        if (data.code === "USERDATA_MATCH") {
+          console.log("로그인 성공", receivedData);
+          onLogin(userCode);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
