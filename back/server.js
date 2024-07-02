@@ -12,8 +12,8 @@ app.use("/todo", todo);
 
 app.use(
   cors({
-    origin: true, // 모든 출처를 허용
-    credentials: true, // credentials 모드를 사용할 경우 true로 설정
+    origin: true,
+    credentials: true,
   })
 );
 
@@ -30,7 +30,7 @@ connection.connect((error) => {
   console.log("Connected to MySQL server as id(server) " + connection.threadId);
 });
 
-//3001 번 포트 제대로 연결시 콘솔에 running 출력대요 유디씨
+//3001 번 포트 제대로 연결시 콘솔에 running 출력
 app.listen(3001, () => {
   console.log("3001 port running");
 });

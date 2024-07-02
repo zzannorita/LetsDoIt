@@ -6,8 +6,8 @@ const cors = require("cors");
 
 router.use(
   cors({
-    origin: true, // 모든 출처를 허용
-    credentials: true, // credentials 모드를 사용할 경우 true로 설정
+    origin: true,
+    credentials: true,
   })
 );
 
@@ -28,12 +28,10 @@ router.use(bodyParser.json({ limit: "50mb" }));
 //스케줄 검색 라우트
 router.post("/searchSchedule", (req, res) => {
   const sendData = {};
-
   const usercode = parseInt(req.body.userCode, 10);
   console.log(usercode);
 
   if (usercode) {
-    // user코드 받아온 경우 즉 로그인이 된 어떤 상태.
     connection.query(
       "SELECT * FROM todo WHERE usercode = ?",
       [usercode],
@@ -58,9 +56,6 @@ router.post("/searchSchedule", (req, res) => {
 //스케줄 추가 라우트
 router.post("/addSchedule", (req, res) => {
   const sendData = {};
-
-  //프론트 실험 가능할 때 수정 필수 !!!!!!!!!
-
   const usercode = req.body.userCode;
   const start = req.body.start;
   const end = req.body.end;
@@ -75,15 +70,10 @@ router.post("/addSchedule", (req, res) => {
   console.log(start, end);
 
   if (usercode) {
-    // user코드 받아온 경우 즉 로그인이 된 어떤 상태.
     connection.query(
       "INSERT INTO todo (usercode, start, end, title, content, color) VALUES (?, ?, ?, ?, ?, ?)",
       [usercode, start, end, title, content, color],
       function (error, results, fields) {
-        //results에 삽입 작업에 대한 정보가 들어간다.
-        //영향을 받은 행의 수 => insert의 경우엔 1임,
-        //새로 삽입된 행의 고유 ID => 이 값은 테이블의 'auto_increment 필드에 대해 설정된 ID를 반환함.,
-        //변경된 행의수 => insert는 일반적으로 0임.
         if (error) throw error;
         sendData.code = "DATA_TRANSFER_SUCCESSFUL";
         res.send(sendData);

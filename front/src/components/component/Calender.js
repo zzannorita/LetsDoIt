@@ -104,39 +104,27 @@ const Calender = ({ userCode, username }) => {
 
   //날짜 지정 함수
   const handleSelect = (target) => {
-    const mm = (month + 1).toString().padStart(2, "0"); // 월을 두 자리로 포맷
-    const dd = target.toString().padStart(2, "0"); // 일을 두 자리로 포맷
-    const selectedDate = `${year}-${mm}-${dd}`; // 선택한 날짜 문자열 생성
+    const mm = (month + 1).toString().padStart(2, "0");
+    const dd = target.toString().padStart(2, "0");
+    const selectedDate = `${year}-${mm}-${dd}`;
     const selectedEndDate = `${year}-${mm}-${dd}`;
-    setSelectedDate(selectedDate); // 선택된 날짜 저장
+    setSelectedDate(selectedDate);
     setSelectedEndDate(selectedEndDate);
     setSelectedEvent(null);
     setModalOpen(true);
-    // console.log("날짜모달");
   };
 
   //이벤트 모달 오픈 함수
   const handleEventClick = (event, e) => {
-    console.log("오픈", event);
     e.stopPropagation();
     setSelectedEvent(event);
     setSelectedDate(event.selectedDate);
     setSelectedEndDate(event.selectedEndDate);
     setEventModalOpen(true);
-    // console.log("이벤트모달");
-    console.log(event.id);
   };
 
   //이벤트 모달 오픈 함수2 검색했을때용
-  const handleEventClick2 = (item, e) => {
-    console.log("오픈2", item, e);
-    //e.stopPropagation();
-    // setSelectedEvent();
-    // setSelectedDate();
-    // setSelectedEndDate();
-    // setEventModalOpen(true);
-    // console.log("이벤트모달");
-  };
+  const handleEventClick2 = (item, e) => {};
 
   //체크박스 중복 방지
   const checkOnlyOne = (checkThis) => {
@@ -193,13 +181,10 @@ const Calender = ({ userCode, username }) => {
       // 업데이트된 이벤트 배열을 events 객체에 할당
       return updatedEvents;
     });
-
-    console.log(events);
   };
 
   const handleNameChange = (event) => {
     setNewName(event.target.value); // 입력 필드의 값으로 newName 상태를 업데이트합니다.
-    console.log(newName);
   };
 
   //handleChangeName 이름 변경 함수
@@ -246,7 +231,6 @@ const Calender = ({ userCode, username }) => {
         });
 
         setReceivedData({ ...data, results: sortedResults });
-        console.log("리시브드 데이터", receivedData);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -255,7 +239,6 @@ const Calender = ({ userCode, username }) => {
 
   useEffect(() => {
     if (receivedData && receivedData.results) {
-      console.log("리시브 데이터 확인", receivedData.results);
       const updatedEvents = { ...events };
       receivedData.results.forEach((result) => {
         const eventData = {
@@ -266,7 +249,6 @@ const Calender = ({ userCode, username }) => {
           selectedColor: result.color,
           modalText: result.content,
         };
-        console.log(eventData.selectedDate);
         // 이미 해당 날짜에 이벤트가 있는지 확인 후 추가
         if (!updatedEvents[result.start.substring(0, 10)]) {
           updatedEvents[result.start.substring(0, 10)] = [eventData];
@@ -282,8 +264,6 @@ const Calender = ({ userCode, username }) => {
       });
 
       setEvents(updatedEvents);
-
-      console.log(events);
     }
   }, [receivedData]);
 

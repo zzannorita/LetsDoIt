@@ -12,11 +12,7 @@
   max-width: 952px;
 }
 .dayBox {
-  /* width: 100%; */
   min-width: 952px;
-  /* height: 100px; */
-  /* width: 15vh;
-  height: 5vh; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,8 +32,6 @@
 .doItBox {
   display: flex;
   align-items: center;
-  /* height: 50px; */
-  /* padding-left: 20px; */
   margin-bottom: 10px;
 }
 .doItContentBox {
@@ -45,7 +39,6 @@
 }
 .doItContentBox span {
   color: #ed7d31;
-  /* font-size: larger; */
 }
 .mainContentBox {
   display: flex;
@@ -53,7 +46,6 @@
   width: 100%;
   padding-bottom: 15px;
   border-bottom: 1px solid rgb(173, 173, 173);
-  /* justify-content: center; */
   justify-content: space-between;
   min-width: 952px;
 }
@@ -61,8 +53,6 @@
   display: flex;
   flex-direction: column;
   width: 64%;
-  /* min-width: 707px; */
-  /* justify-content: center; */
   align-items: center;
   position: relative;
 }
@@ -291,8 +281,6 @@
 .datePickerBox {
   width: 225px;
 }
-.test {
-}
 .datepicker {
   border: none;
   width: 220px;
@@ -372,7 +360,6 @@
 
 .purple .checkbox_icon {
   background-color: #cbb1ed;
-  /* margin-right: 8px; */
 }
 
 input[type="checkbox"]:checked + .checkbox_icon::after {

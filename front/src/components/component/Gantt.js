@@ -115,14 +115,11 @@ const Gantt = ({ userCode, username }) => {
 
   //이벤트 모달 오픈 함수
   const handleEventClick = (event, e) => {
-    console.log("오픈", event);
     e.stopPropagation();
     setSelectedEvent(event);
     setSelectedDate(event.selectedDate); // 이벤트 객체에서 실제 필드에 따라 수정 필요
     setSelectedEndDate(event.selectedEndDate);
     setEventModalOpen(true);
-    // console.log("이벤트모달");
-    console.log(event.id);
   };
 
   //이벤트 모달 오픈 함수2 검색했을때용

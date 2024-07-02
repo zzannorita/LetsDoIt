@@ -12,7 +12,6 @@ import trash from "../../img/trash.png";
 import checked from "../../img/checked.png";
 
 const Board = ({ userCode, username }) => {
-  // const [userCode, setUserCode] = useState("5811");
   const [sendData, setSendData] = useState({ userCode: userCode });
   const [receivedData, setReceivedData] = useState();
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -32,7 +31,6 @@ const Board = ({ userCode, username }) => {
   const [endDate, setEndDate] = useState(new Date());
   const handleDateChange = (dates) => {
     const [start, end] = dates;
-    console.log(start, end);
     setStartDate(start);
     setEndDate(end);
 
@@ -45,7 +43,6 @@ const Board = ({ userCode, username }) => {
     const { value } = event.target;
     setColor(value);
     setUpdateTodoColor(value);
-    console.log(color);
   };
 
   const handleStateToggle = (state, boardId, usercode) => {

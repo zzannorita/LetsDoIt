@@ -41,8 +41,6 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  /* height: 5vh; */
-  /* margin: 10px 0; */
   margin-bottom: 10px;
 }
 
@@ -93,7 +91,6 @@ input[type="checkbox"] {
 
 .purple .checkbox_icon {
   background-color: #cbb1ed;
-  /* margin-right: 8px; */
 }
 
 input[type="checkbox"]:checked + .checkbox_icon::after {
@@ -108,7 +105,6 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* height: 65vh; */
   padding: 0;
   align-items: center;
 }
@@ -164,7 +160,6 @@ input[type="checkbox"]:checked + .checkbox_icon::after {
 .dateTextBox {
   display: flex;
   flex-direction: column;
-  /* height: 7vh; */
   height: 60px;
   text-align: center;
   padding: 2px 0;
