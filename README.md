@@ -11,6 +11,11 @@
 </p>
 <br>
 
+## figma
+[바로가기](https://www.figma.com/design/4IhHQ1asRt3CkTQt1rAGvS/%ED%95%B4%EB%B3%B4%EC%9E%90GO-?node-id=1669-162202&p=f&t=Lbi2NIqWtAgy1J7K-0)
+
+<br>
+
 ## 팀원 소개
 | 신규철(FE , BE)     |  장유리(FE)         |
 | :-----------------: | :-----------------: |
